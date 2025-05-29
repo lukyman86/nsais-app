@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 // API untuk cuaca (proxy ke OpenWeatherMap)
 app.get('/api/cuaca', async (req, res) => {
-    const apiKey = 'ISI_API_KEY_MU_DI_SINI';
+    const apiKey = 'f02599782f4e15ce14105dd32e1e5164';
     const city = req.query.city || 'Jakarta';
     try {
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`);
