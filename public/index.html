@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nusantara Smart Agriculture Integration System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🌾 Nusantara Smart Agriculture Integration System 🌾</h1>
+    </header>
+    <nav>
+        <button onclick="showSection('pemetaan')">📍 Pemetaan & Topografi</button>
+        <button onclick="showSection('cuaca')">🌦️ Pemantauan Cuaca & Iklim</button>
+        <button onclick="showSection('irigasi')">💧 Otomatisasi Irigasi</button>
+        <button onclick="showSection('bibit')">🌱 Pendataan Bibit & Pemantauan</button>
+    </nav>
+    <main>
+        <section id="pemetaan" class="hidden">
+            <h2>📍 Pemetaan, Topografi & Pemupukan</h2>
+            <p>Fitur pemetaan lahan, pengumpulan data, pemupukan.</p>
+        </section>
+
+        <section id="cuaca" class="hidden">
+            <h2>🌦️ Pemantauan Cuaca & Iklim</h2>
+            <input type="text" id="city" placeholder="Masukkan kota">
+            <button onclick="fetchCuaca()">Cek Cuaca</button>
+            <div id="cuacaHasil"></div>
+        </section>
+
+        <section id="irigasi" class="hidden">
+            <h2>💧 Otomatisasi Irigasi</h2>
+            <p>Sistem kontrol irigasi berbasis IoT.</p>
+        </section>
+
+        <section id="bibit" class="hidden">
+            <h2>🌱 Pendataan Bibit & Pemantauan Pertumbuhan</h2>
+            <p>Fitur penjadwalan tanam, monitoring bibit, jadwal pemupukan, dan solusi masalah.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2025 Nusantara Smart Agriculture Integration System</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
