@@ -1,0 +1,13 @@
+{
+  "name": "nsais-app",
+  "version": "1.0.0",
+  "description": "Nusantara Smart Agriculture Integration System",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^2.6.7"
+  }
+}
