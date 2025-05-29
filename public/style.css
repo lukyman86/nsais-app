@@ -1,3 +1,8 @@
+#logo {
+    display: block;
+    margin: 0 auto 10px auto;
+    height: 60px;
+}
 body {
     font-family: Arial, sans-serif;
     margin: 0;
