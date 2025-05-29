@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nusantara Smart Agriculture Integration System</title>
     <link rel="stylesheet" href="style.css">
 </head>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+<script>
+const MAPBOX_TOKEN = 'pk.eyJ1IjoiZXhhbXBsZXVzZXIiLCJhIjoiY2xtaGk4c3ZjMG9yaDNjcGN1bXlrbW1hYSJ9.5HoMJQ9a7n6gZf3xU1M2fw'; // Ganti dengan token Mapbox milikmu
+
+let map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/satellite-streets-v12',
+    center: [110, -7], // Default Jawa Tengah
+    zoom: 14,
+    pitch: 60,           
+    bearing: -17.6,
+    antialias: true
+});
+
+let marker;
+
+document.getElementById('lokasi-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const lat = parseFloat(document.getElementById('latitude').value);
+    const lng = parseFloat(document.getElementById('longitude').value);
+
+    map.flyTo({
+        center: [lng, lat],
+        zoom: 17,
+        pitch: 60,
+        essential: true
+    });
+
+    if (marker) marker.remove();
+    marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+
+    // Contoh data dummy (bisa diganti fetch ke server/database)
+    document.getElementById('kondisi-tanah').textContent = "Liat, Subur";
+    document.getElementById('luas-lahan').textContent = "2 hektar";
+    document.getElementById('jenis-perkebunan').textContent = "Kopi & Kakao";
+});
+</script>
 <body>
     <header>
     <img src="20250530_051954.png" alt="Logo NSAIS" id="logo" style="height:120px; margin-bottom:3px;">
@@ -19,8 +57,22 @@
     </nav>
     <main>
         <section id="pemetaan" class="hidden">
-            <h2>📍 Pemetaan, Topografi & Pemupukan</h2>
-            <p>Fitur pemetaan lahan, pengumpulan data, pemupukan.</p>
+    <h2>📍 Pemetaan, Topografi & Pemupukan</h2>
+    <form id="lokasi-form" style="margin-bottom:16px">
+        <label>Latitude: <input type="number" step="any" id="latitude" required></label>
+        <label>Longitude: <input type="number" step="any" id="longitude" required></label>
+        <button type="submit">Tampilkan Lokasi</button>
+    </form>
+    <div id="map" style="width:100%; height:400px; border-radius:8px; margin-bottom:16px;"></div>
+    <div id="keterangan-lokasi">
+        <strong>Keterangan Lokasi:</strong>
+        <ul>
+            <li>Kondisi tanah: <span id="kondisi-tanah">-</span></li>
+            <li>Luas lahan: <span id="luas-lahan">-</span></li>
+            <li>Jenis perkebunan: <span id="jenis-perkebunan">-</span></li>
+        </ul>
+    </div>
+</section>
         </section>
 
         <section id="cuaca" class="hidden">
