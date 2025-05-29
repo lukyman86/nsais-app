@@ -104,9 +104,25 @@ document.getElementById('lokasi-form').addEventListener('submit', function(e) {
         </section>
 
         <section id="bibit" class="hidden">
-            <h2>🌱 Pendataan Bibit & Pemantauan Pertumbuhan</h2>
-            <p>Fitur penjadwalan tanam, monitoring bibit, jadwal pemupukan, dan solusi masalah.</p>
-        </section>
+    <h2>🌱 Pendataan Bibit & Pemantauan Pertumbuhan</h2>
+    <form id="bibit-form">
+        <label>Kode Lokasi Perkebunan: <input type="text" name="kode_lokasi" required></label><br>
+        <label>Jenis Perkebunan: <input type="text" name="jenis_perkebunan" required></label><br>
+        <label>Jadwal Tanam: <input type="date" name="jadwal_tanam" required></label><br>
+        <label>Jadwal Panen: <input type="date" name="jadwal_panen" required></label><br>
+        <label>Kode & Merek Bibit: <input type="text" name="kode_merek_bibit" required></label><br>
+        <label>Waktu Tanam: <input type="datetime-local" name="waktu_tanam" required></label><br>
+        <label>Kode & Merek Pupuk: <input type="text" name="kode_merek_pupuk"></label><br>
+        <label>Periode Pemupukan: <input type="text" name="periode_pemupukan"></label><br>
+        <label>Takaran Pupuk: <input type="text" name="takaran_pupuk"></label><br>
+        <label>Nutrisi Tambahan: <input type="text" name="nutrisi_tambahan"></label><br>
+        <label>Masalah yang Ada: <textarea name="masalah"></textarea></label><br>
+        <label>Solusi Penanganan: <textarea name="solusi"></textarea></label><br>
+        <label>Laporan Kualitas Progress Pertumbuhan Bibit hingga Panen: <textarea name="laporan_progress"></textarea></label><br>
+        <button type="submit">Simpan Data</button>
+    </form>
+    <div id="hasil-bibit" style="margin-top:16px"></div>
+</section>
     </main>
 
     <footer>
