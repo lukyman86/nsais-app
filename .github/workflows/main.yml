@@ -1,9 +1,0 @@
-nsais-app/
-├── public/
-│   ├── index.html       # Halaman utama
-│   ├── style.css        # Styling dasar
-│   └── script.js        # Logika frontend (cuaca, irigasi)
-├── server/
-│   └── app.js           # Backend Node.js dengan Express
-├── package.json         # Konfigurasi proyek Node.js
-└── README.md            # Dokumentasi proyek
