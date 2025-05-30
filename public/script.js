@@ -1,3 +1,4 @@
+// Menampilkan section sesuai tombol nav
 function showSection(sectionId) {
     document.querySelectorAll('section').forEach(section => {
         section.classList.add('hidden');
@@ -5,26 +6,55 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.remove('hidden');
 }
 
+// Slideshow animasi gambar di header
+document.addEventListener('DOMContentLoaded', function () {
+    const slides = document.querySelectorAll('.slide-image');
+    let currentSlide = 0;
+    function showSlide(idx) {
+        slides.forEach((img, i) => {
+            img.style.opacity = (i === idx) ? '1' : '0';
+        });
+    }
+    showSlide(currentSlide);
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }, 3000);
+});
+
+// Fungsi cek cuaca dengan error handling
 async function fetchCuaca() {
     const city = document.getElementById('city').value;
-    const response = await fetch(`/api/cuaca?city=${city}`);
-    const data = await response.json();
-    if (data.error) {
-        document.getElementById('cuacaHasil').innerText = "Gagal mengambil data cuaca.";
-    } else {
-        document.getElementById('cuacaHasil').innerHTML = `
-            <h3>Cuaca di ${data.name}</h3>
-            <p>Suhu: ${data.main.temp}°C</p>
-            <p>Kelembaban: ${data.main.humidity}%</p>
-            <p>Deskripsi: ${data.weather[0].description}</p>
-        `;
+    try {
+        const response = await fetch(`/api/cuaca?city=${city}`);
+        const data = await response.json();
+        if (data.error) {
+            document.getElementById('cuacaHasil').innerText = "Gagal mengambil data cuaca.";
+        } else {
+            document.getElementById('cuacaHasil').innerHTML = `
+                <h3>Cuaca di ${data.name}</h3>
+                <p>Suhu: ${data.main.temp}°C</p>
+                <p>Kelembaban: ${data.main.humidity}%</p>
+                <p>Deskripsi: ${data.weather[0].description}</p>
+            `;
+        }
+    } catch (err) {
+        document.getElementById('cuacaHasil').innerText = "Gagal menghubungi server.";
     }
-    
-// Tangkap form dan tampilkan hasil
+}
+
+// Fungsi dummy untuk tombol curah hujan & kelembapan
+function fetchcurahhujan() {
+    document.getElementById('curahhujan').innerHTML = "Data curah hujan belum tersedia.";
+}
+function fetchkelembapan() {
+    document.getElementById('cekkelembapan').innerHTML = "Data kelembapan belum tersedia.";
+}
+
+// Form bibit & simpan ke localStorage
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('bibit-form');
     const hasil = document.getElementById('hasil-bibit');
-
     if (form) {
         form.addEventListener('submit', function (e) {
             e.preventDefault();
@@ -32,12 +62,9 @@ document.addEventListener('DOMContentLoaded', function () {
             Array.from(form.elements).forEach(el => {
                 if (el.name) data[el.name] = el.value;
             });
-            // Simpan ke localStorage (atau bisa ganti dengan POST ke backend)
             let bibitData = JSON.parse(localStorage.getItem('bibitData') || '[]');
             bibitData.push(data);
             localStorage.setItem('bibitData', JSON.stringify(bibitData));
-
-            // Tampilkan hasil input
             hasil.innerHTML = `
                 <h4>Data Berhasil Disimpan!</h4>
                 <pre>${JSON.stringify(data, null, 2)}</pre>
