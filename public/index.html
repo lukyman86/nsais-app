@@ -6,21 +6,17 @@
     <title>Nusantara Smart Agriculture Integration System</title>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="irigasi.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="irigasi.js"></script>
 </head>
-    
-<!-- Tambahkan di bagian bawah, sebelum </body> -->
-<link rel="stylesheet" href="irigasi.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="irigasi.js"></script>
 <body>
     <header>
         <div class="logo-flash-container">
-            <img src="/public/20250530_051954.png" class="logo" style="width: 50px; height: auto;" />
+            <img src="20250530_051954.png" class="logo" alt="Logo" />
         </div>
         <h1>🌾 Nusantara Smart Agriculture Integration System 🌾</h1>
     </header>
-            </div>
-    </div>
     <nav>
         <button onclick="showSection('pemetaan')">📍 Pemetaan & Topografi</button>
         <button onclick="showSection('cuaca')">🌦️ Pemantauan Cuaca & Iklim</button>
@@ -28,65 +24,54 @@
         <button onclick="showSection('bibit')">🌱 Pendataan Bibit & Pemantauan</button>
     </nav>
     <main>
-        <section id="pemetaan" class="hidden section-bg">
-            <!-- ...isi section tetap... -->
+        <section id="pemetaan" class="hidden section-bg"></section>
+        <section id="cuaca" class="hidden section-bg"></section>
+        <section id="irigasi" class="hidden section-bg">
+            <h2>💧 Otomatisasi Irigasi</h2>
+            <form id="irigasi-form">
+                <div class="form-row">
+                    <label>Kode Lokasi Pertanian:<br>
+                        <input type="text" name="kode_lokasi" required>
+                    </label>
+                    <label>Nomor Blok Lokasi:<br>
+                        <input type="number" name="nomor_blok" required>
+                    </label>
+                    <label>Nomor Pintu Irigasi:<br>
+                        <input type="number" name="nomor_pintu" required>
+                    </label>
+                </div>
+                <div class="form-row">
+                    <label>Hari Pengairan:<br>
+                        <select name="hari" required>
+                            <option value="Senin">Senin</option>
+                            <option value="Selasa">Selasa</option>
+                            <option value="Rabu">Rabu</option>
+                            <option value="Kamis">Kamis</option>
+                            <option value="Jumat">Jumat</option>
+                            <option value="Sabtu">Sabtu</option>
+                            <option value="Minggu">Minggu</option>
+                        </select>
+                    </label>
+                    <label>Jam Mulai:<br>
+                        <input type="time" name="jam_mulai" required>
+                    </label>
+                    <label>Jam Selesai:<br>
+                        <input type="time" name="jam_selesai" required>
+                    </label>
+                    <label>Debit Air/Periode (liter):<br>
+                        <input type="number" name="debit_air" required>
+                    </label>
+                </div>
+                <button type="submit">Simpan & Set Otomatisasi</button>
+            </form>
+            <div id="irigasi-info"></div>
+            <div id="irigasi-warning"></div>
+            <canvas id="debitChart" height="200"></canvas>
         </section>
-        <section id="cuaca" class="hidden section-bg">
-            <!-- ...isi section tetap... -->
-        </section>
-        <section <!-- ... (header, carousel, nav, dll) ... -->
-<section id="irigasi" class="hidden section-bg">
-    <h2>💧 Otomatisasi Irigasi</h2>
-    <form id="irigasi-form">
-        <div class="form-row">
-            <label>Kode Lokasi Pertanian:<br>
-                <input type="text" name="kode_lokasi" required>
-            </label>
-            <label>Nomor Blok Lokasi:<br>
-                <input type="number" name="nomor_blok" required>
-            </label>
-            <label>Nomor Pintu Irigasi:<br>
-                <input type="number" name="nomor_pintu" required>
-            </label>
-        </div>
-        <div class="form-row">
-            <label>Hari Pengairan:<br>
-                <select name="hari" required>
-                    <option value="Senin">Senin</option>
-                    <option value="Selasa">Selasa</option>
-                    <option value="Rabu">Rabu</option>
-                    <option value="Kamis">Kamis</option>
-                    <option value="Jumat">Jumat</option>
-                    <option value="Sabtu">Sabtu</option>
-                    <option value="Minggu">Minggu</option>
-                </select>
-            </label>
-            <label>Jam Mulai:<br>
-                <input type="time" name="jam_mulai" required>
-            </label>
-            <label>Jam Selesai:<br>
-                <input type="time" name="jam_selesai" required>
-            </label>
-            <label>Debit Air/Periode (liter):<br>
-                <input type="number" name="debit_air" required>
-            </label>
-        </div>
-        <button type="submit">Simpan & Set Otomatisasi</button>
-    </form>
-    <div id="irigasi-info"></div>
-    <div id="irigasi-warning"></div>
-    <canvas id="debitChart" height="200"></canvas>
-</section>
-<!-- ... (footer, etc) ... -->
-
-            <!-- ...isi section tetap... -->
-        </section>
-        <section id="bibit" class="hidden section-bg">
-            <!-- ...isi section tetap... -->
-        </section>
+        <section id="bibit" class="hidden section-bg"></section>
     </main>
     <footer>
-        <p>© 2025 Nusantara Smart Agriculture Integration System</p>
+        <p>&copy; 2025 Nusantara Smart Agriculture Integration System</p>
     </footer>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
     <script src="script.js"></script>
