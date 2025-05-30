@@ -6,7 +6,7 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.remove('hidden');
 }
 
-// Slideshow animasi gambar di header
+// Slideshow animasi gambar di header (optional, jika ada .slide-image)
 document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.slide-image');
     let currentSlide = 0;
@@ -15,14 +15,16 @@ document.addEventListener('DOMContentLoaded', function () {
             img.style.opacity = (i === idx) ? '1' : '0';
         });
     }
-    showSlide(currentSlide);
-    setInterval(() => {
-        currentSlide = (currentSlide + 1) % slides.length;
+    if (slides.length > 0) {
         showSlide(currentSlide);
-    }, 3000);
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }, 3000);
+    }
 });
 
-// Fungsi cek cuaca dengan error handling
+// Fungsi dummy untuk cuaca, curah hujan, kelembapan (pastikan id di HTML dipakai sesuai kebutuhan!)
 async function fetchCuaca() {
     const city = document.getElementById('city').value;
     try {
@@ -42,8 +44,6 @@ async function fetchCuaca() {
         document.getElementById('cuacaHasil').innerText = "Gagal menghubungi server.";
     }
 }
-
-// Fungsi dummy untuk tombol curah hujan & kelembapan
 function fetchcurahhujan() {
     document.getElementById('curahhujan').innerHTML = "Data curah hujan belum tersedia.";
 }
