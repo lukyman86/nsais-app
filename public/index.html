@@ -7,6 +7,11 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 </head>
+    
+<!-- Tambahkan di bagian bawah, sebelum </body> -->
+<link rel="stylesheet" href="irigasi.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="irigasi.js"></script>
 <body>
     <header>
         <div class="logo-flash-container">
@@ -39,32 +44,51 @@
         <section id="cuaca" class="hidden section-bg">
             <!-- ...isi section tetap... -->
         </section>
-        <section <section id="irigasi" class="hidden section-bg">
+        <section <!-- ... (header, carousel, nav, dll) ... -->
+<section id="irigasi" class="hidden section-bg">
     <h2>💧 Otomatisasi Irigasi</h2>
     <form id="irigasi-form">
-        <label>Kode Lokasi Pertanian: <input type="text" name="kode_lokasi" required></label><br>
-        <label>Nomor Blok Lokasi: <input type="number" name="nomor_blok" required></label><br>
-        <label>Nomor Pintu Irigasi: <input type="number" name="nomor_pintu" required></label><br>
-        <label>Hari Pengairan: 
-            <select name="hari" required>
-                <option value="Senin">Senin</option>
-                <option value="Selasa">Selasa</option>
-                <option value="Rabu">Rabu</option>
-                <option value="Kamis">Kamis</option>
-                <option value="Jumat">Jumat</option>
-                <option value="Sabtu">Sabtu</option>
-                <option value="Minggu">Minggu</option>
-            </select>
-        </label><br>
-        <label>Jam Mulai: <input type="time" name="jam_mulai" required></label><br>
-        <label>Jam Selesai: <input type="time" name="jam_selesai" required></label><br>
-        <label>Debit Air/Periode (liter): <input type="number" name="debit_air" required></label><br>
+        <div class="form-row">
+            <label>Kode Lokasi Pertanian:<br>
+                <input type="text" name="kode_lokasi" required>
+            </label>
+            <label>Nomor Blok Lokasi:<br>
+                <input type="number" name="nomor_blok" required>
+            </label>
+            <label>Nomor Pintu Irigasi:<br>
+                <input type="number" name="nomor_pintu" required>
+            </label>
+        </div>
+        <div class="form-row">
+            <label>Hari Pengairan:<br>
+                <select name="hari" required>
+                    <option value="Senin">Senin</option>
+                    <option value="Selasa">Selasa</option>
+                    <option value="Rabu">Rabu</option>
+                    <option value="Kamis">Kamis</option>
+                    <option value="Jumat">Jumat</option>
+                    <option value="Sabtu">Sabtu</option>
+                    <option value="Minggu">Minggu</option>
+                </select>
+            </label>
+            <label>Jam Mulai:<br>
+                <input type="time" name="jam_mulai" required>
+            </label>
+            <label>Jam Selesai:<br>
+                <input type="time" name="jam_selesai" required>
+            </label>
+            <label>Debit Air/Periode (liter):<br>
+                <input type="number" name="debit_air" required>
+            </label>
+        </div>
         <button type="submit">Simpan & Set Otomatisasi</button>
     </form>
-    <div id="irigasi-info" style="margin-top:16px"></div>
-    <div id="irigasi-warning" style="margin-top:16px"></div>
-    <canvas id="debitChart" height="180" style="margin:24px 0;max-width:100%"></canvas>
+    <div id="irigasi-info"></div>
+    <div id="irigasi-warning"></div>
+    <canvas id="debitChart" height="200"></canvas>
 </section>
+<!-- ... (footer, etc) ... -->
+
             <!-- ...isi section tetap... -->
         </section>
         <section id="bibit" class="hidden section-bg">
