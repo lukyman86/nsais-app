@@ -20,8 +20,8 @@ h1 {
 }
 .slideshow-container {
     position: relative;
-    width: 70px;
-    height: 60px;
+    width: 30px;
+    height: 30px;
     margin: 0 auto 1rem auto;
     overflow: hidden;
     border-radius: 18px;
@@ -172,8 +172,8 @@ form button[type="submit"]:hover {
     border-radius: 12px;
     box-shadow: 0 2px 12px #e5393512;
     padding: 1rem;
-} eh
-footer {
+} 
+ehfooter {
     text-align: center;
     padding: 1.5rem 0 1rem 0;
     background: #2196F3;
