@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,13 @@
 </head>
 <body>
     <header>
-        <img src="20250530_051954.png" alt="Logo NSAIS" id="logo" style="height:120px; margin-bottom:3px;">
+        <div class="slideshow-container">
+            <img class="slide-image" src="20250530_051954.png" alt="Slide 1">
+            <img class="slide-image" src="1000018294-removebg-preview.png" alt="Slide 2">
+            <img class="slide-image" src="file_00000000a5e0622fa202c31fc02f415a.png" alt="Slide 3">
+            <!-- Tambahkan gambar lain jika diinginkan -->
+            <div class="slide-caption">Nusantara Smart Agriculture Integration System</div>
+        </div>
         <h1>🌾 Nusantara Smart Agriculture Integration System 🌾</h1>
     </header>
     <nav>
@@ -55,7 +61,7 @@
             <div id="cuacaHasil"></div>
             <button onclick="fetchcurahhujan()">Cek Curah Hujan</button>
             <div id="curahhujan"></div>
-            <button onclick="fetchkelembapan()">Cek kelembapan</button>
+            <button onclick="fetchkelembapan()">Cek Kelembapan</button>
             <div id="cekkelembapan"></div>
         </section>
         <section id="irigasi" class="hidden">
@@ -87,44 +93,6 @@
         <p>© 2025 Nusantara Smart Agriculture Integration System</p>
     </footer>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const MAPBOX_TOKEN = 'pk.eyJ1IjoiZXhhbXBsZXVzZXIiLCJhIjoiY2xtaGk4c3ZjMG9yaDNjcGN1bXlrbW1hYSJ9.5HoMJQ9a7n6gZf3xU1M2fw'; // Ganti dengan token Mapbox milikmu
-
-        let map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/satellite-streets-v12',
-            center: [110, -7], // Default Jawa Tengah
-            zoom: 14,
-            pitch: 60,           
-            bearing: -17.6,
-            antialias: true
-        });
-
-        let marker;
-
-        document.getElementById('lokasi-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const lat = parseFloat(document.getElementById('latitude').value);
-            const lng = parseFloat(document.getElementById('longitude').value);
-
-            map.flyTo({
-                center: [lng, lat],
-                zoom: 17,
-                pitch: 60,
-                essential: true
-            });
-
-            if (marker) marker.remove();
-            marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
-
-            // Contoh data dummy (bisa diganti fetch ke server/database)
-            document.getElementById('kondisi-tanah').textContent = "Liat, Subur";
-            document.getElementById('luas-lahan').textContent = "2 hektar";
-            document.getElementById('jenis-perkebunan').textContent = "Kopi & Kakao";
-        });
-    });
-    </script>
     <script src="script.js"></script>
 </body>
 </html>
