@@ -100,6 +100,79 @@ form button[type="submit"] {
 form button[type="submit"]:hover {
     background: #1976D2;
 }
+#irigasi .form-row {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+}
+#irigasi label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #2e7d32;
+    margin-bottom: .5rem;
+}
+#irigasi input, #irigasi select {
+    margin-top: 0.3rem;
+    border: 1px solid #bdbdbd;
+    border-radius: 7px;
+    padding: 0.45rem 0.6rem;
+    font-size: 1rem;
+    background: #f9fff9;
+    transition: border-color 0.2s;
+}
+#irigasi input:focus, #irigasi select:focus {
+    border-color: #43a047;
+    outline: none;
+}
+#irigasi button[type="submit"] {
+    background: linear-gradient(90deg,#43a047 60%,#e53935 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.04rem;
+    padding: 0.7rem 2.2rem;
+    margin: 1rem 0 0 0;
+    transition: background 0.3s, transform 0.2s;
+}
+#irigasi button[type="submit"]:hover {
+    background: linear-gradient(90deg,#e53935 60%,#43a047 100%);
+    transform: translateY(-2px) scale(1.04);
+}
+
+#irigasi-info {
+    background: #e8f5e9;
+    color: #256029;
+    border-left: 4px solid #43a047;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 9px;
+    font-size: 1.04rem;
+    box-shadow: 0 2px 8px #43a04715;
+}
+
+#irigasi-warning {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    color: #e53935;
+    animation: flashWarning 1.2s infinite alternate;
+}
+@keyframes flashWarning {
+    0% { opacity: 1;}
+    100% { opacity: 0.6;}
+}
+
+#debitChart {
+    margin-top: 2rem;
+    background: #fffaf7;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #e5393512;
+    padding: 1rem;
+} eh
 footer {
     text-align: center;
     padding: 1.5rem 0 1rem 0;
