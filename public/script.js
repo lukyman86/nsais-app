@@ -19,7 +19,7 @@ async function fetchCuaca() {
             <p>Deskripsi: ${data.weather[0].description}</p>
         `;
     }
-4
+    
 // Tangkap form dan tampilkan hasil
 document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('bibit-form');
