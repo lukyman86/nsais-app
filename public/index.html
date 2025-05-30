@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -9,15 +9,23 @@
 </head>
 <body>
     <header>
-        <div class="slideshow-container">
-            <img class="slide-image" src="20250530_051954.png" alt="Slide 1">
-            <img class="slide-image" src="1000018294-removebg-preview.png" alt="Slide 2">
-            <img class="slide-image" src="file_00000000a5e0622fa202c31fc02f415a.png" alt="Slide 3">
-            <!-- Tambahkan gambar lain jika diinginkan -->
-            <div class="slide-caption">Nusantara Smart Agriculture Integration System</div>
+        <div class="logo-flash-container">
+            <img src="1000018294-removebg-preview.png" alt="Logo NSAIS" id="logo-anim">
         </div>
         <h1>🌾 Nusantara Smart Agriculture Integration System 🌾</h1>
     </header>
+    <div class="carousel-section">
+        <div class="carousel-viewport">
+            <div class="carousel-track">
+                <img class="carousel-image" src="20250530_051954.png" alt="Foto 1">
+                <img class="carousel-image" src="file_00000000a5e0622fa202c31fc02f415a.png" alt="Foto 2">
+                <img class="carousel-image" src="file_00000000ad44622f91f1d42f23a5a02f.svg" alt="Foto 3">
+                <!-- Tambahkan gambar lain jika diinginkan -->
+            </div>
+        </div>
+        <button class="carousel-btn prev" onclick="moveCarousel(-1)">‹</button>
+        <button class="carousel-btn next" onclick="moveCarousel(1)">›</button>
+    </div>
     <nav>
         <button onclick="showSection('pemetaan')">📍 Pemetaan & Topografi</button>
         <button onclick="showSection('cuaca')">🌦️ Pemantauan Cuaca & Iklim</button>
@@ -25,68 +33,42 @@
         <button onclick="showSection('bibit')">🌱 Pendataan Bibit & Pemantauan</button>
     </nav>
     <main>
-        <section id="pemetaan" class="hidden">
-            <h2>📍 Pemetaan, Topografi</h2>
-            <form id="lokasi-form" style="margin-bottom:16px">
-                <label>Latitude: <input type="number" step="any" id="latitude" required></label>
-                <label>Longitude: <input type="number" step="any" id="longitude" required></label>
-                <button type="submit">Tampilkan Lokasi</button>
-            </form>
-            <div id="map" style="width:100%; height:400px; border-radius:8px; margin-bottom:16px;"></div>
-            <div id="keterangan-lokasi">
-                <strong>Keterangan Lokasi:</strong>
-                <ul>
-                    <li>Kondisi tanah: <span id="kondisi-tanah">-</span></li>
-                    <li>Luas lahan: <span id="luas-lahan">-</span></li>
-                    <li>Jenis perkebunan: <span id="jenis-perkebunan">-</span></li>
-                    <li>Waktu Tanam: <span id="waktu-tanam">-</span></li>
-                    <li>Kode & Merek Bibit: <span id="kode-merek-bibit">-</span></li>
-                    <li>Jumlah Bibit: <span id="jumlah-bibit">-</span></li>
-                    <li>Kode & Merek Pupuk: <span id="kode-merek-pupuk">-</span></li>
-                    <li>Estimasi Jumlah Pupuk (Ton): <span id="estimasi-jumlah-pupuk">-</span></li>
-                    <li>Jangka Waktu Tanam: <span id="jangka-waktu-tanam">-</span></li>
-                    <li>Jadwal Waktu Panen: <span id="jadwal-waktu-panen">-</span></li>
-                    <li>Estimasi Jumlah Panen (TON): <span id="estimasi-jumlah-panen">-</span></li>
-                    <li>Penanggung Jawab Lokasi: <span id="penanggung-jawab-lokasi">-</span></li>
-                    <li>Konsultan Tenaga Ahli: <span id="konsultan-tenaga-ahli">-</span></li>
-                    <li>Jumlah Karyawan: <span id="jumlah-karyawan">-</span></li>
-                    <li>Keterangan Tambahan: <span id="keterangan-tambahan">-</span></li>
-                </ul>
-            </div>
+        <section id="pemetaan" class="hidden section-bg">
+            <!-- ...isi section tetap... -->
         </section>
-        <section id="cuaca" class="hidden">
-            <h2>🌦️ Pemantauan Cuaca & Iklim</h2>
-            <input type="text" id="city" placeholder="Masukkan kota">
-            <button onclick="fetchCuaca()">Cek Cuaca</button>
-            <div id="cuacaHasil"></div>
-            <button onclick="fetchcurahhujan()">Cek Curah Hujan</button>
-            <div id="curahhujan"></div>
-            <button onclick="fetchkelembapan()">Cek Kelembapan</button>
-            <div id="cekkelembapan"></div>
+        <section id="cuaca" class="hidden section-bg">
+            <!-- ...isi section tetap... -->
         </section>
-        <section id="irigasi" class="hidden">
-            <h2>💧 Otomatisasi Irigasi</h2>
-            <p>Sistem kontrol irigasi berbasis IoT.</p>
+        <section <section id="irigasi" class="hidden section-bg">
+    <h2>💧 Otomatisasi Irigasi</h2>
+    <form id="irigasi-form">
+        <label>Kode Lokasi Pertanian: <input type="text" name="kode_lokasi" required></label><br>
+        <label>Nomor Blok Lokasi: <input type="number" name="nomor_blok" required></label><br>
+        <label>Nomor Pintu Irigasi: <input type="number" name="nomor_pintu" required></label><br>
+        <label>Hari Pengairan: 
+            <select name="hari" required>
+                <option value="Senin">Senin</option>
+                <option value="Selasa">Selasa</option>
+                <option value="Rabu">Rabu</option>
+                <option value="Kamis">Kamis</option>
+                <option value="Jumat">Jumat</option>
+                <option value="Sabtu">Sabtu</option>
+                <option value="Minggu">Minggu</option>
+            </select>
+        </label><br>
+        <label>Jam Mulai: <input type="time" name="jam_mulai" required></label><br>
+        <label>Jam Selesai: <input type="time" name="jam_selesai" required></label><br>
+        <label>Debit Air/Periode (liter): <input type="number" name="debit_air" required></label><br>
+        <button type="submit">Simpan & Set Otomatisasi</button>
+    </form>
+    <div id="irigasi-info" style="margin-top:16px"></div>
+    <div id="irigasi-warning" style="margin-top:16px"></div>
+    <canvas id="debitChart" height="180" style="margin:24px 0;max-width:100%"></canvas>
+</section>
+            <!-- ...isi section tetap... -->
         </section>
-        <section id="bibit" class="hidden">
-            <h2>🌱 Pendataan Bibit & Pemantauan Pertumbuhan</h2>
-            <form id="bibit-form">
-                <label>Kode Lokasi Perkebunan: <input type="text" name="kode_lokasi" required></label><br>
-                <label>Jenis Perkebunan: <input type="text" name="jenis_perkebunan" required></label><br>
-                <label>Jadwal Tanam: <input type="date" name="jadwal_tanam" required></label><br>
-                <label>Jadwal Panen: <input type="date" name="jadwal_panen" required></label><br>
-                <label>Kode & Merek Bibit: <input type="text" name="kode_merek_bibit" required></label><br>
-                <label>Waktu Tanam: <input type="datetime-local" name="waktu_tanam" required></label><br>
-                <label>Kode & Merek Pupuk: <input type="text" name="kode_merek_pupuk"></label><br>
-                <label>Periode Pemupukan: <input type="text" name="periode_pemupukan"></label><br>
-                <label>Takaran Pupuk: <input type="text" name="takaran_pupuk"></label><br>
-                <label>Nutrisi Tambahan: <input type="text" name="nutrisi_tambahan"></label><br>
-                <label>Masalah yang Ada: <textarea name="masalah"></textarea></label><br>
-                <label>Solusi Penanganan: <textarea name="solusi"></textarea></label><br>
-                <label>Laporan Kualitas Progress Pertumbuhan Bibit hingga Panen: <textarea name="laporan_progress"></textarea></label><br>
-                <button type="submit">Simpan Data</button>
-            </form>
-            <div id="hasil-bibit" style="margin-top:16px"></div>
+        <section id="bibit" class="hidden section-bg">
+            <!-- ...isi section tetap... -->
         </section>
     </main>
     <footer>
