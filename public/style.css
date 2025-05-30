@@ -1,48 +1,113 @@
-#logo {
-    display: block;
-    margin: 0 auto 10px auto;
-    height: 150px;
-}
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e0f7fa 0%, #f9fbe7 100%);
     margin: 0;
     padding: 0;
-    background-color: #f2f2f2;
+    min-height: 100vh;
 }
 header {
-    background-color: #4CAF50;
+    background: #2196F3;
     color: white;
     text-align: center;
-    padding: 1rem;
+    padding: 2rem 1rem 0.5rem 1rem;
+    box-shadow: 0 4px 16px rgba(33,150,243,0.07);
+    position: relative;
+}
+h1 {
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+.slideshow-container {
+    position: relative;
+    width: 320px;
+    height: 120px;
+    margin: 0 auto 1rem auto;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.13);
+    background: #fff;
+}
+.slide-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    left: 0; top: 0;
+    transition: opacity 1s;
+    opacity: 0;
+    z-index: 1;
+}
+.slide-caption {
+    position: absolute;
+    bottom: 4px;
+    left: 0; width: 100%;
+    text-align: center;
+    background: rgba(33,150,243,0.7);
+    color: #fff;
+    padding: 0.3rem 0;
+    font-size: 1rem;
+    border-radius: 0 0 18px 18px;
+    z-index: 2;
 }
 nav {
     text-align: center;
-    margin: 1rem;
+    margin: 1rem 0;
 }
 nav button {
     margin: 0.5rem;
-    padding: 0.5rem 1rem;
-    background-color: #4CAF50;
+    padding: 0.7rem 1.7rem;
+    background: linear-gradient(90deg,#4CAF50 60%,#2196F3 100%);
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(76,175,80,0.09);
+    transition: background 0.3s, transform 0.2s;
 }
 nav button:hover {
-    background-color: #45a049;
+    background: linear-gradient(90deg,#2196F3 60%,#4CAF50 100%);
+    transform: translateY(-2px) scale(1.04);
 }
 main {
-    padding: 1rem;
+    max-width: 800px;
+    margin: 2rem auto 4rem auto;
+    padding: 2rem;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(33,150,243,0.09);
 }
 section.hidden {
     display: none;
 }
+form input, form textarea, form button, form select {
+    padding: 0.6rem;
+    margin: 0.4rem 0;
+    border-radius: 7px;
+    border: 1px solid #bdbdbd;
+    font-size: 1rem;
+}
+form button[type="submit"] {
+    background: #2196F3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+form button[type="submit"]:hover {
+    background: #1976D2;
+}
 footer {
     text-align: center;
-    padding: 1rem;
-    background-color: #4CAF50;
+    padding: 1.5rem 0 1rem 0;
+    background: #2196F3;
     color: white;
-    position: fixed;
-    bottom: 0;
     width: 100%;
+    border-radius: 18px 18px 0 0;
+    margin-top: 2rem;
+    box-shadow: 0 -2px 10px rgba(33,150,243,0.09);
+    font-size: 1.04rem;
 }
