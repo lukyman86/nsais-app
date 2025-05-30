@@ -1,53 +1,16 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nusantara Smart Agriculture Integration System</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 </head>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
-<script>
-const MAPBOX_TOKEN = 'pk.eyJ1IjoiZXhhbXBsZXVzZXIiLCJhIjoiY2xtaGk4c3ZjMG9yaDNjcGN1bXlrbW1hYSJ9.5HoMJQ9a7n6gZf3xU1M2fw'; // Ganti dengan token Mapbox milikmu
-
-let map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/satellite-streets-v12',
-    center: [110, -7], // Default Jawa Tengah
-    zoom: 14,
-    pitch: 60,           
-    bearing: -17.6,
-    antialias: true
-});
-
-let marker;
-
-document.getElementById('lokasi-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const lat = parseFloat(document.getElementById('latitude').value);
-    const lng = parseFloat(document.getElementById('longitude').value);
-
-    map.flyTo({
-        center: [lng, lat],
-        zoom: 17,
-        pitch: 60,
-        essential: true
-    });
-
-    if (marker) marker.remove();
-    marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
-
-    // Contoh data dummy (bisa diganti fetch ke server/database)
-    document.getElementById('kondisi-tanah').textContent = "Liat, Subur";
-    document.getElementById('luas-lahan').textContent = "2 hektar";
-    document.getElementById('jenis-perkebunan').textContent = "Kopi & Kakao";
-});
-</script>
 <body>
     <header>
-    <img src="20250530_051954.png" alt="Logo NSAIS" id="logo" style="height:120px; margin-bottom:3px;">
-    <h1>🌾 Nusantara Smart Agriculture Integration System 🌾</h1>
+        <img src="20250530_051954.png" alt="Logo NSAIS" id="logo" style="height:120px; margin-bottom:3px;">
+        <h1>🌾 Nusantara Smart Agriculture Integration System 🌾</h1>
     </header>
     <nav>
         <button onclick="showSection('pemetaan')">📍 Pemetaan & Topografi</button>
@@ -57,36 +20,34 @@ document.getElementById('lokasi-form').addEventListener('submit', function(e) {
     </nav>
     <main>
         <section id="pemetaan" class="hidden">
-    <h2>📍 Pemetaan, Topografi</h2>
-    <form id="lokasi-form" style="margin-bottom:16px">
-        <label>Latitude: <input type="number" step="any" id="latitude" required></label>
-        <label>Longitude: <input type="number" step="any" id="longitude" required></label>
-        <button type="submit">Tampilkan Lokasi</button>
-    </form>
-    <div id="map" style="width:100%; height:400px; border-radius:8px; margin-bottom:16px;"></div>
-    <div id="keterangan-lokasi">
-        <strong>Keterangan Lokasi:</strong>
-        <ul>
-            <li>Kondisi tanah: <span id="kondisi-tanah">-</span></li>
-            <li>Luas lahan: <span id="luas-lahan">-</span></li>
-            <li>Jenis perkebunan: <span id="jenis-perkebunan">-</span></li>
-            <li>Waktu Tanam: <span id="waktu tanam">-</span></li>
-            <li>Kode & Merek Bibit: <span id="kode & merek bibit">-</span></li>
-            <li>Jumlah Bibit: <span id="jumlah bibit">-</span></li>
-            <li>Kode & Merek Pupuk: <span id="kode & merek pupuk">-</span></li>
-            <li>Estimasi Jumlah Pupuk (Ton): <span id="estimasi jumlah pupuk">-</span></li>
-            <li>Jangka Waktu Tanam: <span id="jangka waktu tanam">-</span></li>
-            <li>Jadwal Waktu Panen: <span id="jadwal waktu panen">-</span></li>
-            <li>Estimasi Jumlah Panen (TON): <span id="estimasi jumlah panen (ton)">-</span></li>
-            <li>Penanggung Jawab Lokasi: <span id="penanggung jawab lokasi">-</span></li>
-            <li>Konsultan Tenaga Ahli: <span id="konsultan tenaga ahli">-</span></li>
-            <li>Jumlah Karyawan: <span id="jumlah karyawan">-</span></li>
-            <li>Keterangan Tambahan: <span id="keterangan tambahan">-</span></li>
-        </ul>
-    </div>
-</section>
+            <h2>📍 Pemetaan, Topografi</h2>
+            <form id="lokasi-form" style="margin-bottom:16px">
+                <label>Latitude: <input type="number" step="any" id="latitude" required></label>
+                <label>Longitude: <input type="number" step="any" id="longitude" required></label>
+                <button type="submit">Tampilkan Lokasi</button>
+            </form>
+            <div id="map" style="width:100%; height:400px; border-radius:8px; margin-bottom:16px;"></div>
+            <div id="keterangan-lokasi">
+                <strong>Keterangan Lokasi:</strong>
+                <ul>
+                    <li>Kondisi tanah: <span id="kondisi-tanah">-</span></li>
+                    <li>Luas lahan: <span id="luas-lahan">-</span></li>
+                    <li>Jenis perkebunan: <span id="jenis-perkebunan">-</span></li>
+                    <li>Waktu Tanam: <span id="waktu-tanam">-</span></li>
+                    <li>Kode & Merek Bibit: <span id="kode-merek-bibit">-</span></li>
+                    <li>Jumlah Bibit: <span id="jumlah-bibit">-</span></li>
+                    <li>Kode & Merek Pupuk: <span id="kode-merek-pupuk">-</span></li>
+                    <li>Estimasi Jumlah Pupuk (Ton): <span id="estimasi-jumlah-pupuk">-</span></li>
+                    <li>Jangka Waktu Tanam: <span id="jangka-waktu-tanam">-</span></li>
+                    <li>Jadwal Waktu Panen: <span id="jadwal-waktu-panen">-</span></li>
+                    <li>Estimasi Jumlah Panen (TON): <span id="estimasi-jumlah-panen">-</span></li>
+                    <li>Penanggung Jawab Lokasi: <span id="penanggung-jawab-lokasi">-</span></li>
+                    <li>Konsultan Tenaga Ahli: <span id="konsultan-tenaga-ahli">-</span></li>
+                    <li>Jumlah Karyawan: <span id="jumlah-karyawan">-</span></li>
+                    <li>Keterangan Tambahan: <span id="keterangan-tambahan">-</span></li>
+                </ul>
+            </div>
         </section>
-
         <section id="cuaca" class="hidden">
             <h2>🌦️ Pemantauan Cuaca & Iklim</h2>
             <input type="text" id="city" placeholder="Masukkan kota">
@@ -97,38 +58,73 @@ document.getElementById('lokasi-form').addEventListener('submit', function(e) {
             <button onclick="fetchkelembapan()">Cek kelembapan</button>
             <div id="cekkelembapan"></div>
         </section>
-
         <section id="irigasi" class="hidden">
             <h2>💧 Otomatisasi Irigasi</h2>
             <p>Sistem kontrol irigasi berbasis IoT.</p>
         </section>
-
         <section id="bibit" class="hidden">
-    <h2>🌱 Pendataan Bibit & Pemantauan Pertumbuhan</h2>
-    <form id="bibit-form">
-        <label>Kode Lokasi Perkebunan: <input type="text" name="kode_lokasi" required></label><br>
-        <label>Jenis Perkebunan: <input type="text" name="jenis_perkebunan" required></label><br>
-        <label>Jadwal Tanam: <input type="date" name="jadwal_tanam" required></label><br>
-        <label>Jadwal Panen: <input type="date" name="jadwal_panen" required></label><br>
-        <label>Kode & Merek Bibit: <input type="text" name="kode_merek_bibit" required></label><br>
-        <label>Waktu Tanam: <input type="datetime-local" name="waktu_tanam" required></label><br>
-        <label>Kode & Merek Pupuk: <input type="text" name="kode_merek_pupuk"></label><br>
-        <label>Periode Pemupukan: <input type="text" name="periode_pemupukan"></label><br>
-        <label>Takaran Pupuk: <input type="text" name="takaran_pupuk"></label><br>
-        <label>Nutrisi Tambahan: <input type="text" name="nutrisi_tambahan"></label><br>
-        <label>Masalah yang Ada: <textarea name="masalah"></textarea></label><br>
-        <label>Solusi Penanganan: <textarea name="solusi"></textarea></label><br>
-        <label>Laporan Kualitas Progress Pertumbuhan Bibit hingga Panen: <textarea name="laporan_progress"></textarea></label><br>
-        <button type="submit">Simpan Data</button>
-    </form>
-    <div id="hasil-bibit" style="margin-top:16px"></div>
-</section>
+            <h2>🌱 Pendataan Bibit & Pemantauan Pertumbuhan</h2>
+            <form id="bibit-form">
+                <label>Kode Lokasi Perkebunan: <input type="text" name="kode_lokasi" required></label><br>
+                <label>Jenis Perkebunan: <input type="text" name="jenis_perkebunan" required></label><br>
+                <label>Jadwal Tanam: <input type="date" name="jadwal_tanam" required></label><br>
+                <label>Jadwal Panen: <input type="date" name="jadwal_panen" required></label><br>
+                <label>Kode & Merek Bibit: <input type="text" name="kode_merek_bibit" required></label><br>
+                <label>Waktu Tanam: <input type="datetime-local" name="waktu_tanam" required></label><br>
+                <label>Kode & Merek Pupuk: <input type="text" name="kode_merek_pupuk"></label><br>
+                <label>Periode Pemupukan: <input type="text" name="periode_pemupukan"></label><br>
+                <label>Takaran Pupuk: <input type="text" name="takaran_pupuk"></label><br>
+                <label>Nutrisi Tambahan: <input type="text" name="nutrisi_tambahan"></label><br>
+                <label>Masalah yang Ada: <textarea name="masalah"></textarea></label><br>
+                <label>Solusi Penanganan: <textarea name="solusi"></textarea></label><br>
+                <label>Laporan Kualitas Progress Pertumbuhan Bibit hingga Panen: <textarea name="laporan_progress"></textarea></label><br>
+                <button type="submit">Simpan Data</button>
+            </form>
+            <div id="hasil-bibit" style="margin-top:16px"></div>
+        </section>
     </main>
-
     <footer>
         <p>© 2025 Nusantara Smart Agriculture Integration System</p>
     </footer>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const MAPBOX_TOKEN = 'pk.eyJ1IjoiZXhhbXBsZXVzZXIiLCJhIjoiY2xtaGk4c3ZjMG9yaDNjcGN1bXlrbW1hYSJ9.5HoMJQ9a7n6gZf3xU1M2fw'; // Ganti dengan token Mapbox milikmu
 
+        let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/satellite-streets-v12',
+            center: [110, -7], // Default Jawa Tengah
+            zoom: 14,
+            pitch: 60,           
+            bearing: -17.6,
+            antialias: true
+        });
+
+        let marker;
+
+        document.getElementById('lokasi-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const lat = parseFloat(document.getElementById('latitude').value);
+            const lng = parseFloat(document.getElementById('longitude').value);
+
+            map.flyTo({
+                center: [lng, lat],
+                zoom: 17,
+                pitch: 60,
+                essential: true
+            });
+
+            if (marker) marker.remove();
+            marker = new mapboxgl.Marker().setLngLat([lng, lat]).addTo(map);
+
+            // Contoh data dummy (bisa diganti fetch ke server/database)
+            document.getElementById('kondisi-tanah').textContent = "Liat, Subur";
+            document.getElementById('luas-lahan').textContent = "2 hektar";
+            document.getElementById('jenis-perkebunan').textContent = "Kopi & Kakao";
+        });
+    });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
