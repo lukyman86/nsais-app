@@ -99,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Simulasi sensor: update chart tiap 10 detik
 setInterval(() => {
-    // Pilih blok terakhir diisi (atau blok 1)
     const blok = Object.keys(blokDebitLevel).sort((a,b) => +b - +a)[0] || 1;
     if (!blok) return;
     const last = blokDebitLevel[blok].data[blokDebitLevel[blok].data.length-1] || 60;
