@@ -6,7 +6,7 @@
     <title>Nusantara Smart Agriculture Integration System</title>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="irigasi.css">
+    <!-- Hapus irigasi.css jika memang tidak ada filenya -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="irigasi.js"></script>
 </head>
@@ -24,8 +24,17 @@
         <button onclick="showSection('bibit')">🌱 Pendataan Bibit & Pemantauan</button>
     </nav>
     <main>
-        <section id="pemetaan" class="hidden section-bg"></section>
-        <section id="cuaca" class="hidden section-bg"></section>
+        <section id="pemetaan" class="hidden section-bg">
+            <!-- Pemetaan & Topografi (Isi sesuai kebutuhan) -->
+        </section>
+        <section id="cuaca" class="hidden section-bg">
+            <h2>🌦️ Pemantauan Cuaca & Iklim</h2>
+            <input type="text" id="city" placeholder="Ketik nama kota...">
+            <button onclick="fetchCuaca()">Cek Cuaca</button>
+            <div id="cuacaHasil"></div>
+            <div id="curahhujan"></div>
+            <div id="cekkelembapan"></div>
+        </section>
         <section id="irigasi" class="hidden section-bg">
             <h2>💧 Otomatisasi Irigasi</h2>
             <form id="irigasi-form">
@@ -68,7 +77,22 @@
             <div id="irigasi-warning"></div>
             <canvas id="debitChart" height="200"></canvas>
         </section>
-        <section id="bibit" class="hidden section-bg"></section>
+        <section id="bibit" class="hidden section-bg">
+            <h2>🌱 Pendataan Bibit & Pemantauan</h2>
+            <form id="bibit-form">
+                <label>Nama Bibit:
+                    <input type="text" name="nama_bibit" required>
+                </label>
+                <label>Jumlah:
+                    <input type="number" name="jumlah" required>
+                </label>
+                <label>Tanggal Tanam:
+                    <input type="date" name="tanggal_tanam" required>
+                </label>
+                <button type="submit">Simpan Data Bibit</button>
+            </form>
+            <div id="hasil-bibit"></div>
+        </section>
     </main>
     <footer>
         <p>&copy; 2025 Nusantara Smart Agriculture Integration System</p>
