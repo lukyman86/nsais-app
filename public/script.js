@@ -1,4 +1,4 @@
-// Menampilkan section sesuai tombol nav
+// Navigasi antar section
 function showSection(sectionId) {
     document.querySelectorAll('section').forEach(section => {
         section.classList.add('hidden');
@@ -6,7 +6,7 @@ function showSection(sectionId) {
     document.getElementById(sectionId).classList.remove('hidden');
 }
 
-// Slideshow animasi gambar di header (optional, jika ada .slide-image)
+// Slideshow header jika ada .slide-image (aman jika tidak ada)
 document.addEventListener('DOMContentLoaded', function () {
     const slides = document.querySelectorAll('.slide-image');
     let currentSlide = 0;
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// Fungsi dummy untuk cuaca, curah hujan, kelembapan (pastikan id di HTML dipakai sesuai kebutuhan!)
+// Fungsi dummy cuaca, hujan, kelembapan
 async function fetchCuaca() {
     const city = document.getElementById('city').value;
     try {
