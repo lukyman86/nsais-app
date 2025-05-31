@@ -140,7 +140,7 @@ form button[type="submit"]:hover {
     animation: flashLogo 5s infinite;
 }
 img.logo {
-    width: 90px;
+    width: 120px;
     height: auto;
 }
 #debitChart {
