@@ -5,7 +5,7 @@ body {
     padding: 0;
     min-height: 100vh;
 }
-.header {
+header {
     background: linear-gradient(90deg, #43ea2d 0%, #10b981 100%);
     color: white;
     text-align: center;
