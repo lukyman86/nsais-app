@@ -1,62 +1,50 @@
-// public/script.js
+// Ganti dengan API key OpenWeatherMap dan Mapbox Token Anda!
+const OPENWEATHERMAP_API_KEY = 'ISI_API_KEY_OPENWEATHERMAP';
+mapboxgl.accessToken = 'pk.eyJ1IjoibHVreTE2OCIsImEiOiJjbWJlNm05NHExZXJxMmpvcGhtcjVkMWNjIn0.3ywQt_67Tncnjeal0P_qLQ';
+
+// === Helper LocalStorage ===
+function getLS(key, def=[]) {
+  try {
+    return JSON.parse(localStorage.getItem(key)) || def;
+  } catch {
+    return def;
+  }
+}
+function setLS(key, val) {
+  localStorage.setItem(key, JSON.stringify(val));
+}
+
+// === Navigasi ===
 function showSection(id) {
-  // Sembunyikan semua section utama
   document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
-  // Tampilkan section yang dipilih
   const section = document.getElementById(id);
   if (section) section.classList.remove('hidden');
-}
-
-// Navigasi antar section
-function showSection(sectionId) {
-    document.querySelectorAll('section').forEach(section => {
-        section.classList.add('hidden');
-    });
-    document.getElementById(sectionId).classList.remove('hidden');
-}
-
-// Tampilkan section pertama secara default saat halaman dibuka
-document.addEventListener('DOMContentLoaded', function() {
-  showSection('pemetaan');
-});
-// ===== Mapbox Token =====
-mapboxgl.accessToken = 'pk.eyJ1IjoibHVreTE2OCIsImEiOiJjbWJlNm05NHExZXJxMmpvcGhtcjVkMWNjIn0.3ywQt_67Tncnjeal0P_qLQ'; // Ganti dengan token Anda
-
-let map;
-let marker;
-
-// DATA LOKASI (dummy array, simpan di JS memory saja)
-let dataLokasi = [
-  {
-    koordinat: [-7.8014, 110.3671], // [lat, lng]
-    lokasi: 'Yogyakarta Selatan, Sleman',
-    luas: '120 Ha',
-    blok: 4,
-    jenis: 'Kelapa Sawit, Karet',
-    penanggungJawab: 'Ibu Siti Rahmawati',
-    ahli: 'Dr. Andi Prasetyo',
-    karyawan: 38,
-    waktuTanam: '2025-01-10',
-    waktuPanen: '2025-10-15',
-    kodeBibit: 'KB-001',
-    jumlahBibit: 5000,
-    kodePupuk: 'PUK-888',
-    merekPupuk: 'SuperGrow',
-    kebutuhanPupuk: '3 ton'
+  if (id === 'pemetaan') {
+    setTimeout(() => { if (typeof initMap === "function") initMap(); }, 300);
   }
-];
+  if (id === 'bibit') {
+    tampilkanDaftarBibit();
+  }
+}
+document.addEventListener('DOMContentLoaded', function() {
+  showSection('beranda');
+});
 
-function cariDataLokasi(lat, lng) {
+// ========== PEMETAAN & TOPOGRAFI ==========
+let map, marker;
+
+function cariDataLokasi(lat, lng, dataLokasi) {
   return dataLokasi.find(loc =>
     Math.abs(loc.koordinat[0] - lat) < 0.001 && Math.abs(loc.koordinat[1] - lng) < 0.001
   );
 }
 
 function tampilkanKeteranganLokasi(lat, lng) {
+  const dataLokasi = getLS('lokasiPerkebunan');
   const keterangan = document.getElementById('keterangan-lokasi');
   const formTambah = document.getElementById('form-tambah-lokasi');
   const notif = document.getElementById('notif-tambah');
-  const data = cariDataLokasi(lat, lng);
+  const data = cariDataLokasi(lat, lng, dataLokasi);
   if (data) {
     keterangan.innerHTML = `
       <b>Lokasi Perkebunan:</b> ${data.lokasi}<br>
@@ -80,14 +68,12 @@ function tampilkanKeteranganLokasi(lat, lng) {
     keterangan.innerHTML = `<i>Data lokasi tidak ditemukan. Silakan tambah data perkebunan baru di bawah ini.</i>`;
     formTambah.style.display = 'block';
     notif.innerHTML = '';
-    // Isi hidden koordinat pada form tambah lokasi
     formTambah.lat.value = lat;
     formTambah.lng.value = lng;
   }
 }
 
 function initMap(center = [-7.8014, 110.3671]) {
-  // Mapbox pakai [lng, lat]
   const mapboxCenter = [center[1], center[0]];
   if (map) {
     map.setCenter(mapboxCenter);
@@ -107,20 +93,7 @@ function initMap(center = [-7.8014, 110.3671]) {
   tampilkanKeteranganLokasi(center[0], center[1]);
 }
 
-// ========= Menu Navigation ==========
-function showSection(id) {
-  document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
-  const section = document.getElementById(id);
-  if (section) section.classList.remove('hidden');
-  if (id === 'pemetaan') {
-    setTimeout(() => initMap(), 300);
-  }
-}
-
-// ========= Form Koordinat & Tambah Baru ==========
 document.addEventListener('DOMContentLoaded', function() {
-  showSection('pemetaan');
-
   // Form cari lokasi
   const formCari = document.getElementById('form-cari-lokasi');
   const inputKoordinat = document.getElementById('input-koordinat');
@@ -138,14 +111,12 @@ document.addEventListener('DOMContentLoaded', function() {
       initMap([lat, lng]);
     });
   }
-
   // Form tambah data lokasi baru
   const formTambah = document.getElementById('form-tambah-lokasi');
   if (formTambah) {
     formTambah.addEventListener('submit', function(e) {
       e.preventDefault();
       const f = formTambah;
-      // Ambil value dari input
       const lat = parseFloat(f.lat.value);
       const lng = parseFloat(f.lng.value);
       const dataBaru = {
@@ -165,63 +136,122 @@ document.addEventListener('DOMContentLoaded', function() {
         merekPupuk: f.merekPupuk.value,
         kebutuhanPupuk: f.kebutuhanPupuk.value
       };
+      let dataLokasi = getLS('lokasiPerkebunan');
       dataLokasi.push(dataBaru);
+      setLS('lokasiPerkebunan', dataLokasi);
       tampilkanKeteranganLokasi(lat, lng);
       if (marker) marker.setLngLat([lng, lat]);
       formTambah.reset();
       formTambah.style.display = 'none';
       const notif = document.getElementById('notif-tambah');
-      notif.innerHTML = `<span style="color:green">Data lokasi perkebunan berhasil ditambahkan!</span>`;
+      notif.innerHTML = `<span style="color:green">Data lokasi perkebunan berhasil disimpan!</span>`;
     });
   }
 });
 
-// Fungsi dummy cuaca, hujan, kelembapan
-async function fetchCuaca() {
-    const city = document.getElementById('city').value;
-    try {
-        const response = await fetch(`/api/cuaca?city=${city}`);
-        const data = await response.json();
-        if (data.error) {
-            document.getElementById('cuacaHasil').innerText = "Gagal mengambil data cuaca.";
-        } else {
-            document.getElementById('cuacaHasil').innerHTML = `
-                <h3>Cuaca di ${data.name}</h3>
-                <p>Suhu: ${data.main.temp}°C</p>
-                <p>Kelembaban: ${data.main.humidity}%</p>
-                <p>Deskripsi: ${data.weather[0].description}</p>
-            `;
-        }
-    } catch (err) {
-        document.getElementById('cuacaHasil').innerText = "Gagal menghubungi server.";
-    }
-}
-function fetchcurahhujan() {
-    document.getElementById('curahhujan').innerHTML = "Data curah hujan belum tersedia.";
-}
-function fetchkelembapan() {
-    document.getElementById('cekkelembapan').innerHTML = "Data kelembapan belum tersedia.";
+// ========== CUACA ==========
+function fetchCuaca() {
+  const city = document.getElementById('city').value.trim();
+  const hasil = document.getElementById('cuacaHasil');
+  if (!city) {
+    hasil.innerHTML = "<span style='color:red'>Silakan masukkan nama kota.</span>";
+    return;
+  }
+  hasil.innerHTML = "Memuat data cuaca...";
+  fetch(`https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${OPENWEATHERMAP_API_KEY}&units=metric&lang=id`)
+    .then(resp => {
+      if (!resp.ok) throw new Error("Kota tidak ditemukan!");
+      return resp.json();
+    })
+    .then(data => {
+      hasil.innerHTML = `
+        <b>Cuaca di ${data.name}</b><br>
+        Suhu: ${data.main.temp} °C<br>
+        Kelembapan: ${data.main.humidity}%<br>
+        Kondisi: ${data.weather[0].description}<br>
+        Angin: ${data.wind.speed} m/s
+      `;
+    })
+    .catch(err => {
+      hasil.innerHTML = `<span style='color:red'>${err.message}</span>`;
+    });
 }
 
-// Form bibit & simpan ke localStorage
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('bibit-form');
-    const hasil = document.getElementById('hasil-bibit');
-    if (form) {
-        form.addEventListener('submit', function (e) {
-            e.preventDefault();
-            const data = {};
-            Array.from(form.elements).forEach(el => {
-                if (el.name) data[el.name] = el.value;
-            });
-            let bibitData = JSON.parse(localStorage.getItem('bibitData') || '[]');
-            bibitData.push(data);
-            localStorage.setItem('bibitData', JSON.stringify(bibitData));
-            hasil.innerHTML = `
-                <h4>Data Berhasil Disimpan!</h4>
-                <pre>${JSON.stringify(data, null, 2)}</pre>
-            `;
-            form.reset();
-        });
-    }
+// ========== BIBIT & PEMANTAUAN ==========
+function tampilkanDaftarBibit() {
+  const data = getLS('dataBibit');
+  const el = document.getElementById('daftar-bibit');
+  if (!data.length) {
+    el.innerHTML = `<em>Belum ada data bibit tersimpan.</em>`;
+    return;
+  }
+  let html = `<h3>Riwayat Data Bibit & Pemantauan</h3><table class="tabel-bibit"><thead>
+      <tr>
+        <th>Kode</th><th>Merek</th><th>Distributor</th><th>Jumlah</th>
+        <th>Lokasi</th><th>Tanam</th><th>Panen</th><th>Pupuk/Bibit</th>
+        <th>Nutrisi</th><th>Siklus</th><th>Pemantauan</th>
+        <th>Kendala</th><th>Solusi</th><th>Metode</th>
+        <th>Ahli</th><th>Penanggung Jawab</th>
+      </tr></thead><tbody>`;
+  for (const b of data) {
+    html += `<tr>
+      <td>${b.kode_bibit}</td>
+      <td>${b.merek_bibit}</td>
+      <td>${b.distributor}</td>
+      <td>${b.jumlah_bibit}</td>
+      <td>${b.lokasi_perkebunan}</td>
+      <td>${b.waktu_tanam}</td>
+      <td>${b.waktu_panen}</td>
+      <td>${b.takaran_pupuk}</td>
+      <td>${b.nutrisi_tambahan}</td>
+      <td>${b.siklus_pemupukan}</td>
+      <td><pre>${b.keterangan_pemantauan}</pre></td>
+      <td>${b.kendala}</td>
+      <td>${b.solusi}</td>
+      <td>${b.metode}</td>
+      <td>${b.tenaga_ahli}</td>
+      <td>${b.penanggung_jawab}</td>
+    </tr>`;
+  }
+  html += "</tbody></table>";
+  el.innerHTML = html;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const bibitForm = document.getElementById('bibit-form');
+  if (bibitForm) {
+    bibitForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const f = bibitForm;
+      const dataBaru = {
+        kode_bibit: f.kode_bibit.value,
+        merek_bibit: f.merek_bibit.value,
+        distributor: f.distributor.value,
+        jumlah_bibit: f.jumlah_bibit.value,
+        lokasi_perkebunan: f.lokasi_perkebunan.value,
+        waktu_tanam: f.waktu_tanam.value,
+        waktu_panen: f.waktu_panen.value,
+        takaran_pupuk: f.takaran_pupuk.value,
+        nutrisi_tambahan: f.nutrisi_tambahan.value,
+        siklus_pemupukan: f.siklus_pemupukan.value,
+        keterangan_pemantauan: f.keterangan_pemantauan.value,
+        kendala: f.kendala.value,
+        solusi: f.solusi.value,
+        metode: f.metode.value,
+        tenaga_ahli: f.tenaga_ahli.value,
+        penanggung_jawab: f.penanggung_jawab.value
+      };
+      let data = getLS('dataBibit');
+      data.push(dataBaru);
+      setLS('dataBibit', data);
+      document.getElementById('hasil-bibit').innerHTML = `
+        <div style="background:#e3fbe6; padding:1rem 1.5rem; border-radius:9px; box-shadow:0 2px 8px #43a04715;">
+          <b>Data Bibit & Pemantauan berhasil disimpan!</b>
+        </div>
+      `;
+      bibitForm.reset();
+      tampilkanDaftarBibit();
+    });
+  }
+  tampilkanDaftarBibit();
 });
