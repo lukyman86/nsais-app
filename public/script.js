@@ -1,5 +1,5 @@
 // Ganti dengan API key OpenWeatherMap dan Mapbox Token Anda!
-const OPENWEATHERMAP_API_KEY = 'ISI_API_KEY_OPENWEATHERMAP';
+const OPENWEATHERMAP_API_KEY = '3b30547ecf9d733dd7d3889e7ce49962';
 mapboxgl.accessToken = 'pk.eyJ1IjoibHVreTE2OCIsImEiOiJjbWJlNm05NHExZXJxMmpvcGhtcjVkMWNjIn0.3ywQt_67Tncnjeal0P_qLQ';
 
 // === Helper LocalStorage ===
