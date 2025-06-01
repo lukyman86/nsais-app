@@ -1,11 +1,3 @@
-// Navigasi antar section
-function showSection(sectionId) {
-    document.querySelectorAll('section').forEach(section => {
-        section.classList.add('hidden');
-    });
-    document.getElementById(sectionId).classList.remove('hidden');
-}
-
 // public/script.js
 function showSection(id) {
   // Sembunyikan semua section utama
@@ -15,12 +7,20 @@ function showSection(id) {
   if (section) section.classList.remove('hidden');
 }
 
+// Navigasi antar section
+function showSection(sectionId) {
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.add('hidden');
+    });
+    document.getElementById(sectionId).classList.remove('hidden');
+}
+
 // Tampilkan section pertama secara default saat halaman dibuka
 document.addEventListener('DOMContentLoaded', function() {
   showSection('pemetaan');
 });
 // ===== Mapbox Token =====
-mapboxgl.accessToken = 'ISI_MAPBOX_TOKEN_ANDA_DI_SINI'; // Ganti dengan token Anda
+mapboxgl.accessToken = 'pk.eyJ1IjoibHVreTE2OCIsImEiOiJjbWJlNm05NHExZXJxMmpvcGhtcjVkMWNjIn0.3ywQt_67Tncnjeal0P_qLQ'; // Ganti dengan token Anda
 
 let map;
 let marker;
