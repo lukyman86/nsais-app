@@ -24,6 +24,20 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+// public/script.js
+function showSection(id) {
+  // Sembunyikan semua section utama
+  document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+  // Tampilkan section yang dipilih
+  const section = document.getElementById(id);
+  if (section) section.classList.remove('hidden');
+}
+
+// Tampilkan section pertama secara default saat halaman dibuka
+document.addEventListener('DOMContentLoaded', function() {
+  showSection('pemetaan');
+});
+
 // Fungsi dummy cuaca, hujan, kelembapan
 async function fetchCuaca() {
     const city = document.getElementById('city').value;
