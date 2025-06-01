@@ -24,7 +24,6 @@
         <button onclick="showSection('bibit')">🌱 Pendataan Bibit & Pemantauan</button>
     </nav>
     <main>
-        <!-- Beranda, tampil pertama kali -->
         <section id="beranda" class="section-bg">
             <h2>Selamat Datang di Nusantara Smart Agriculture Integration System</h2>
             <p>
@@ -34,14 +33,13 @@
                 2. Menu <b>Pemetaan & Topografi</b> untuk melihat dan menambah data perkebunan di peta.<br>
                 3. Menu <b>Pemantauan Cuaca</b> untuk mengecek prakiraan cuaca lokasi.<br>
                 4. Menu <b>Otomatisasi Irigasi</b> untuk mengatur jadwal dan sistem irigasi.<br>
-                5. Menu <b>Pendataan Bibit</b> untuk pencatatan bibit dan pemupukan.
+                5. Menu <b>Pendataan Bibit</b> untuk pencatatan bibit dan pemantauan bibit.
             </p>
             <p>
                 Silakan pilih menu fitur pada navigasi untuk memulai.
             </p>
         </section>
 
-        <!-- Pemetaan & Topografi -->
         <section id="pemetaan" class="hidden section-bg">
             <h2>🗺️ Pemetaan & Topografi</h2>
             <form id="form-cari-lokasi" style="margin-bottom:1rem;">
@@ -109,17 +107,13 @@
             <div id="notif-tambah"></div>
         </section>
 
-        <!-- Pemantauan Cuaca -->
         <section id="cuaca" class="hidden section-bg">
             <h2>🌦️ Pemantauan Cuaca & Iklim</h2>
             <input type="text" id="city" placeholder="Ketik nama kota...">
             <button onclick="fetchCuaca()">Cek Cuaca</button>
             <div id="cuacaHasil"></div>
-            <div id="curahhujan"></div>
-            <div id="cekkelembapan"></div>
         </section>
 
-        <!-- Otomatisasi Irigasi -->
         <section id="irigasi" class="hidden section-bg">
             <h2>💧 Otomatisasi Irigasi</h2>
             <form id="irigasi-form">
@@ -163,22 +157,67 @@
             <canvas id="debitChart" height="200"></canvas>
         </section>
 
-        <!-- Pendataan Bibit -->
         <section id="bibit" class="hidden section-bg">
             <h2>🌱 Pendataan Bibit & Pemantauan</h2>
             <form id="bibit-form">
-                <label>Nama Bibit:
-                    <input type="text" name="nama_bibit" required>
-                </label>
-                <label>Jumlah:
-                    <input type="number" name="jumlah" required>
-                </label>
-                <label>Tanggal Tanam:
-                    <input type="date" name="tanggal_tanam" required>
-                </label>
-                <button type="submit">Simpan Data Bibit</button>
+                <div style="display:flex;flex-wrap:wrap;gap:1.5rem;">
+                    <div>
+                        <label>Kode Bibit:<br>
+                            <input type="text" name="kode_bibit" required>
+                        </label><br>
+                        <label>Merek Bibit:<br>
+                            <input type="text" name="merek_bibit" required>
+                        </label><br>
+                        <label>Nama Distributor:<br>
+                            <input type="text" name="distributor" required>
+                        </label><br>
+                        <label>Jumlah Bibit:<br>
+                            <input type="number" name="jumlah_bibit" required>
+                        </label><br>
+                        <label>Lokasi Perkebunan:<br>
+                            <input type="text" name="lokasi_perkebunan" required>
+                        </label><br>
+                        <label>Waktu Tanam:<br>
+                            <input type="date" name="waktu_tanam" required>
+                        </label><br>
+                        <label>Waktu Panen:<br>
+                            <input type="date" name="waktu_panen" required>
+                        </label><br>
+                        <label>Jumlah Takaran Pupuk per Bibit:<br>
+                            <input type="text" name="takaran_pupuk" required>
+                        </label><br>
+                        <label>Nutrisi Tambahan Lain:<br>
+                            <input type="text" name="nutrisi_tambahan">
+                        </label><br>
+                        <label>Siklus Pemupukan:<br>
+                            <input type="text" name="siklus_pemupukan" required>
+                        </label><br>
+                    </div>
+                    <div>
+                        <label>Keterangan Pemantauan Mingguan (boleh kosong jika belum ada):<br>
+                            <textarea name="keterangan_pemantauan" rows="7" placeholder="Minggu 1: ...&#10;Minggu 2: ...&#10;dst."></textarea>
+                        </label><br>
+                        <label>Kendala Dihadapi:<br>
+                            <input type="text" name="kendala" >
+                        </label><br>
+                        <label>Solusi Penanganan:<br>
+                            <input type="text" name="solusi" >
+                        </label><br>
+                        <label>Metode Penanganan:<br>
+                            <input type="text" name="metode" >
+                        </label><br>
+                        <label>Tenaga Ahli:<br>
+                            <input type="text" name="tenaga_ahli" >
+                        </label><br>
+                        <label>Penanggung Jawab Kebun:<br>
+                            <input type="text" name="penanggung_jawab" >
+                        </label><br>
+                    </div>
+                </div>
+                <button type="submit">Simpan Data Bibit & Pemantauan</button>
             </form>
-            <div id="hasil-bibit"></div>
+            <div id="hasil-bibit" style="margin-top:1.5rem;"></div>
+            <div id="daftar-bibit" style="margin-top:2rem;"></div>
         </section>
     </main>
     <footer>
