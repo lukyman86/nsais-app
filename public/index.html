@@ -25,21 +25,106 @@
     </nav>
     <main>
         <section id="beranda" class="section-bg">
-            <h2>Selamat Datang di Nusantara Smart Agriculture Integration System</h2>
-            <b>Aplikasi demo ini dibuat oleh Fadhel Aja</b><br>
-            <p>
-                Aplikasi ini membantu Anda memantau, mengelola, dan mengoptimalkan perkebunan secara digital.<br>
-                <b>Tutorial Penggunaan:</b><br>
-                1. Pilih menu di atas untuk berpindah fitur.<br>
-                2. Menu <b>Pemetaan & Topografi</b> untuk melihat dan menambah data perkebunan di peta.<br>
-                3. Menu <b>Pemantauan Cuaca</b> untuk mengecek prakiraan cuaca lokasi.<br>
-                4. Menu <b>Otomatisasi Irigasi</b> untuk mengatur jadwal dan sistem irigasi.<br>
-                5. Menu <b>Pendataan Bibit</b> untuk pencatatan bibit dan pemantauan bibit.
-            </p>
-            <p>
-                Silakan pilih menu fitur pada navigasi untuk memulai.
-            </p>
-        </section>
+  <h2>Selamat Datang di Nusantara Smart Agriculture Integration System</h2>
+            <b>Aplikasi Demo ini dibuat oleh FADHEL AJA</b><br>
+
+  <div class="opsi-auth-beranda">
+    <button class="auth-btn" onclick="showAuthForm('login')">Login Operator</button>
+    <button class="auth-btn" onclick="showAuthForm('registrasi')">Registrasi Operator</button>
+  </div>
+
+  <!-- Modal Login -->
+  <div id="modal-login" class="modal-auth">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeAuthForm('login')">&times;</span>
+      <h3>Login Operator</h3>
+      <form id="form-login">
+        <label>ID Operator:<br>
+          <input name="kode_operator" required>
+        </label><br>
+        <label>Password:<br>
+          <input name="password" type="password" required>
+        </label><br>
+        <label>Validasi 3 Angka Nomor Kontak:<br>
+          <span id="login-validasi-info"></span>
+          <input name="validasi" maxlength="3" required>
+        </label><br>
+        <button type="submit">Login</button>
+      </form>
+      <div id="notif-login"></div>
+      <div style="margin-top:1rem;">
+        <button type="button" class="small-btn" onclick="showAuthForm('lupa')">Lupa Password?</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Lupa Password -->
+  <div id="modal-lupa" class="modal-auth">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeAuthForm('lupa')">&times;</span>
+      <h3>Lupa Password?</h3>
+      <form id="form-lupa-password">
+        <label>Email:<br>
+          <input name="email" type="email" required>
+        </label><br>
+        <label>Validasi 3 Angka Nomor Kontak:<br>
+          <span id="lupa-validasi-info"></span>
+          <input name="validasi" maxlength="3" required>
+        </label><br>
+        <button type="submit">Kirim Link Reset</button>
+      </form>
+      <div id="notif-lupa"></div>
+    </div>
+  </div>
+
+  <!-- Modal Registrasi -->
+  <div id="modal-registrasi" class="modal-auth">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeAuthForm('registrasi')">&times;</span>
+      <h3>Registrasi Operator</h3>
+      <form id="form-registrasi">
+        <label>ID Operator:<br>
+          <input name="kode_operator" id="kode_operator" readonly style="background:#f7f7f7">
+          <button type="button" id="btn-generate-kode">Generate</button>
+        </label><br>
+        <label>Nama Lengkap:<br>
+          <input name="nama" required>
+        </label><br>
+        <label>No. KTP:<br>
+          <input name="ktp" required maxlength="16">
+        </label><br>
+        <label>No. Kontak:<br>
+          <input name="kontak" id="reg_kontak" required maxlength="15">
+        </label><br>
+        <label>Email:<br>
+          <input name="email" type="email" required>
+        </label><br>
+        <label>Password:<br>
+          <input name="password" type="password" required>
+        </label><br>
+        <label>Konfirmasi Password:<br>
+          <input name="konfirmasi" type="password" required>
+        </label><br>
+        <button type="submit">Registrasi</button>
+      </form>
+      <div id="notif-registrasi"></div>
+    </div>
+  </div>
+
+  <hr>
+  <p>
+      Aplikasi ini membantu Anda memantau, mengelola, dan mengoptimalkan perkebunan secara digital.<br>
+      <b>Tutorial Penggunaan:</b><br>
+      1. Pilih menu di atas untuk berpindah fitur.<br>
+      2. Menu <b>Pemetaan & Topografi</b> untuk melihat dan menambah data perkebunan di peta.<br>
+      3. Menu <b>Pemantauan Cuaca</b> untuk mengecek prakiraan cuaca lokasi.<br>
+      4. Menu <b>Otomatisasi Irigasi</b> untuk mengatur jadwal dan sistem irigasi.<br>
+      5. Menu <b>Pendataan Bibit</b> untuk pencatatan bibit dan pemantauan bibit.
+  </p>
+  <p>
+      Silakan pilih menu fitur pada navigasi untuk memulai.
+  </p>
+</section>
 
         <section id="pemetaan" class="hidden section-bg">
             <h2>🗺️ Pemetaan & Topografi</h2>
