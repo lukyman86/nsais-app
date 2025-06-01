@@ -6,36 +6,110 @@
     <title>Nusantara Smart Agriculture Integration System</title>
     <link href="https://api.mapbox.com/mapbox-gl-js/v3.0.1/mapbox-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
-    <!-- Hapus irigasi.css jika memang tidak ada filenya -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="irigasi.js"></script>
 </head>
 <body>
     <header>
         <div class="logo-flash-container">
-            <img src="20250530_051954.png" class="logo" alt="Logo" />
+            <img src="logo.png" class="logo" alt="Logo" />
         </div>
         <h1>🌾 Nusantara Smart Agriculture Integration System 🌾</h1>
     </header>
     <nav>
+        <button onclick="showSection('beranda')">🏠 Beranda</button>
         <button onclick="showSection('pemetaan')">📍 Pemetaan & Topografi</button>
         <button onclick="showSection('cuaca')">🌦️ Pemantauan Cuaca & Iklim</button>
         <button onclick="showSection('irigasi')">💧 Otomatisasi Irigasi</button>
         <button onclick="showSection('bibit')">🌱 Pendataan Bibit & Pemantauan</button>
     </nav>
     <main>
-        <section <section id="pemetaan" class="hidden section-bg">
-  <h2>🗺️ Pemetaan & Topografi</h2>
-  <form id="form-cari-lokasi" style="margin-bottom:1rem;">
-    <label>Koordinat Lokasi (latitude, longitude):
-      <input type="text" id="input-koordinat" placeholder="-7.8014, 110.3671" required>
-    </label>
-    <button type="submit">Cari Lokasi</button>
-  </form>
-  <div id="map" style="width:100%; height:400px; border-radius:12px; margin-bottom:1.5rem;"></div>
-  <div id="keterangan-lokasi" style="background:#f4fff4; padding:1rem; border-radius:9px; box-shadow:0 2px 8px #43a04715;"></div>
-</section>
+        <!-- Beranda, tampil pertama kali -->
+        <section id="beranda" class="section-bg">
+            <h2>Selamat Datang di Nusantara Smart Agriculture Integration System</h2>
+            <p>
+                Aplikasi ini membantu Anda memantau, mengelola, dan mengoptimalkan perkebunan secara digital.<br>
+                <b>Tutorial Penggunaan:</b><br>
+                1. Pilih menu di atas untuk berpindah fitur.<br>
+                2. Menu <b>Pemetaan & Topografi</b> untuk melihat dan menambah data perkebunan di peta.<br>
+                3. Menu <b>Pemantauan Cuaca</b> untuk mengecek prakiraan cuaca lokasi.<br>
+                4. Menu <b>Otomatisasi Irigasi</b> untuk mengatur jadwal dan sistem irigasi.<br>
+                5. Menu <b>Pendataan Bibit</b> untuk pencatatan bibit dan pemupukan.
+            </p>
+            <p>
+                Silakan pilih menu fitur pada navigasi untuk memulai.
+            </p>
         </section>
+
+        <!-- Pemetaan & Topografi -->
+        <section id="pemetaan" class="hidden section-bg">
+            <h2>🗺️ Pemetaan & Topografi</h2>
+            <form id="form-cari-lokasi" style="margin-bottom:1rem;">
+                <label>Koordinat Lokasi (latitude, longitude):
+                    <input type="text" id="input-koordinat" placeholder="-7.8014, 110.3671" required>
+                </label>
+                <button type="submit">Cari Lokasi</button>
+            </form>
+            <div id="map" style="width:100%; height:400px; border-radius:12px; margin-bottom:1.5rem;"></div>
+            <div id="keterangan-lokasi" style="background:#f4fff4; padding:1rem; border-radius:9px; box-shadow:0 2px 8px #43a04715;"></div>
+            <form id="form-tambah-lokasi" style="display:none; margin-top:1rem; background:#f6fff6; padding:1.2rem; border-radius:9px; box-shadow:0 2px 8px #43a04715;">
+                <h3>Tambah Data Perkebunan Baru</h3>
+                <div style="display:flex;flex-wrap:wrap;gap:1rem;">
+                  <div>
+                    <label>Lokasi Perkebunan:<br>
+                      <input name="lokasi" required>
+                    </label><br>
+                    <label>Luas Perkebunan:<br>
+                      <input name="luas" required>
+                    </label><br>
+                    <label>Jumlah Blok Perkebunan:<br>
+                      <input name="blok" type="number" required>
+                    </label><br>
+                    <label>Jenis Perkebunan:<br>
+                      <input name="jenis" required>
+                    </label><br>
+                    <label>Penanggung Jawab:<br>
+                      <input name="penanggungJawab" required>
+                    </label><br>
+                    <label>Tenaga Ahli Pendamping:<br>
+                      <input name="ahli" required>
+                    </label><br>
+                    <label>Jumlah Karyawan:<br>
+                      <input name="karyawan" type="number" required>
+                    </label><br>
+                  </div>
+                  <div>
+                    <label>Waktu Awal Tanam:<br>
+                      <input name="waktuTanam" type="date" required>
+                    </label><br>
+                    <label>Waktu Panen:<br>
+                      <input name="waktuPanen" type="date" required>
+                    </label><br>
+                    <label>Kode Bibit yang Ditanam:<br>
+                      <input name="kodeBibit" required>
+                    </label><br>
+                    <label>Jumlah Bibit yang Ditanam:<br>
+                      <input name="jumlahBibit" type="number" required>
+                    </label><br>
+                    <label>Kode Pupuk:<br>
+                      <input name="kodePupuk" required>
+                    </label><br>
+                    <label>Merek Pupuk:<br>
+                      <input name="merekPupuk" required>
+                    </label><br>
+                    <label>Jumlah Kebutuhan Pupuk Hingga Panen:<br>
+                      <input name="kebutuhanPupuk" required>
+                    </label><br>
+                  </div>
+                </div>
+                <input type="hidden" name="lat">
+                <input type="hidden" name="lng">
+                <button type="submit">Simpan Data</button>
+            </form>
+            <div id="notif-tambah"></div>
+        </section>
+
+        <!-- Pemantauan Cuaca -->
         <section id="cuaca" class="hidden section-bg">
             <h2>🌦️ Pemantauan Cuaca & Iklim</h2>
             <input type="text" id="city" placeholder="Ketik nama kota...">
@@ -44,6 +118,8 @@
             <div id="curahhujan"></div>
             <div id="cekkelembapan"></div>
         </section>
+
+        <!-- Otomatisasi Irigasi -->
         <section id="irigasi" class="hidden section-bg">
             <h2>💧 Otomatisasi Irigasi</h2>
             <form id="irigasi-form">
@@ -86,6 +162,8 @@
             <div id="irigasi-warning"></div>
             <canvas id="debitChart" height="200"></canvas>
         </section>
+
+        <!-- Pendataan Bibit -->
         <section id="bibit" class="hidden section-bg">
             <h2>🌱 Pendataan Bibit & Pemantauan</h2>
             <form id="bibit-form">
