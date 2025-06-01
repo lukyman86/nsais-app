@@ -40,7 +40,7 @@ nav button:hover {
     transform: translateY(-2px) scale(1.04);
 }
 main {
-    max-width: 800px;
+    max-width: 900px;
     margin: 2rem auto 4rem auto;
     padding: 2rem;
     background: #fff;
@@ -49,6 +49,11 @@ main {
 }
 section.hidden {
     display: none;
+}
+.section-bg {
+    background: #f6fff6;
+    border-radius: 15px;
+    margin-bottom: 1.3rem;
 }
 form input, form textarea, form button, form select {
     padding: 0.6rem;
@@ -137,10 +142,10 @@ form button[type="submit"]:hover {
     50% { opacity: 0.1; }
 }
 .logo {
-    animation: flashLogo 5s infinite;
+    animation: flashLogo 10s infinite;
 }
 img.logo {
-    width: 120px;
+    width: 150px;
     height: auto;
 }
 #debitChart {
@@ -160,4 +165,26 @@ footer {
     margin-top: 2rem;
     box-shadow: 0 -2px 10px rgba(33,150,243,0.09);
     font-size: 1.04rem;
+}
+.tabel-bibit {
+  width:100%;
+  border-collapse: collapse;
+  margin-top:1rem;
+  font-size:0.99rem;
+}
+.tabel-bibit th, .tabel-bibit td {
+  border:1px solid #bdbdbd;
+  padding:0.5rem 0.7rem;
+  text-align:left;
+  vertical-align:top;
+}
+.tabel-bibit th {
+  background:#dcf9e2;
+}
+.tabel-bibit tr:nth-child(even) {background: #f6fff6;}
+.tabel-bibit pre {
+  background: #f7fff2;
+  border-radius: 6px;
+  padding: 0.4rem;
+  margin:0;
 }
