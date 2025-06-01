@@ -1,4 +1,17 @@
+// public/irigasi.js
+// Tambahkan logika irigasi jika ada
 // Data simulasi sensor blok
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('irigasi-form');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('irigasi-info').textContent = "Pengaturan otomatisasi irigasi berhasil disimpan!";
+      document.getElementById('irigasi-warning').textContent = "";
+    });
+  }
+});
+
 let blokDebitLevel = {
     1: {level: 65, data: [60, 65, 55, 80, 70, 58, 67]},
     2: {level: 35, data: [40, 35, 30, 38, 42, 37, 36]}
