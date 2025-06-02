@@ -255,3 +255,238 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   tampilkanDaftarBibit();
 });
+// ============ Tambah Operator Dummy Jika Belum Ada ===========
+(function(){
+  let opers = JSON.parse(localStorage.getItem('operatorList')||'[]');
+  if (!opers.find(o=>o.kode_operator==='OP-NSAIS080123456')) {
+    opers.push({
+      kode_operator: 'OP-NSAIS080123456',
+      nama: 'Operator Dummy',
+      ktp: '1234567890123456',
+      kontak: '081234567890',
+      email: 'dummy@operator.com',
+      password: '123456'
+    });
+    localStorage.setItem('operatorList', JSON.stringify(opers));
+  }
+})();
+
+// ============ SESSION LOGIN HANDLING ===========
+function setLoginSession(operator) {
+  sessionStorage.setItem('loginOperator', JSON.stringify(operator));
+}
+function getLoginSession() {
+  try {
+    return JSON.parse(sessionStorage.getItem('loginOperator'));
+  } catch { return null; }
+}
+function clearLoginSession() {
+  sessionStorage.removeItem('loginOperator');
+}
+
+// ============ UI LOGIN/LOGOUT & MENU FITUR ===========
+function updateLoginUI() {
+  const op = getLoginSession();
+  // Toggle nav buttons (menu fitur) except beranda
+  document.querySelectorAll('nav button:not([onclick*="showSection(\'beranda\')"])')
+    .forEach(btn => btn.style.display = op ? '' : 'none');
+  // Tambahkan tombol logout jika sudah login, hapus jika belum
+  let nav = document.querySelector('nav');
+  let logoutBtn = document.getElementById('btn-logout');
+  if (op && !logoutBtn) {
+    let btn = document.createElement('button');
+    btn.id = 'btn-logout';
+    btn.textContent = 'Logout';
+    btn.onclick = function() {
+      clearLoginSession();
+      updateLoginUI();
+      showSection('beranda');
+    };
+    nav.appendChild(btn);
+  } else if (!op && logoutBtn) {
+    logoutBtn.remove();
+  }
+  // Hide semua fitur section kecuali beranda jika belum login
+  document.querySelectorAll('main > section:not(#beranda)').forEach(sec=>{
+    sec.style.display = op ? '' : 'none';
+  });
+  // Jika login, auto ke pemetaan jika belum ada section lain terbuka
+  if (op && document.querySelector('.section-bg:not(.hidden):not(#beranda)') === null) {
+    showSection('pemetaan');
+  }
+}
+
+// ============ MODAL LOGIN/REG/LUPA ===========
+function showAuthForm(type) {
+  if(type==='registrasi') document.getElementById('modal-registrasi').style.display='block';
+  if(type==='login') document.getElementById('modal-login').style.display='block';
+  if(type==='lupa') {
+    document.getElementById('modal-login').style.display='none';
+    document.getElementById('modal-lupa').style.display='block';
+  }
+}
+function closeAuthForm(type) {
+  if(type==='registrasi') document.getElementById('modal-registrasi').style.display='none';
+  if(type==='login') document.getElementById('modal-login').style.display='none';
+  if(type==='lupa') document.getElementById('modal-lupa').style.display='none';
+}
+window.onclick = function(event) {
+  ['modal-registrasi','modal-login','modal-lupa'].forEach(id=>{
+    const modal=document.getElementById(id);
+    if(event.target===modal) modal.style.display='none';
+  });
+}
+
+// ============ LOGIC REGISTRASI, LOGIN, LUPA ===========
+function random6digit() {
+  return Math.floor(100000 + Math.random()*900000).toString();
+}
+function generateKodeOperator() {
+  return 'OP-NSAIS08' + random6digit();
+}
+function acak3angkaKontak(nokontak) {
+  if (!nokontak) return '000';
+  const angka = nokontak.replace(/\D/g,"");
+  if (angka.length < 6) return angka.slice(-3);
+  const idx = Math.floor(Math.random()*(angka.length-3));
+  return angka.slice(idx, idx+3);
+}
+function getOperatorByKode(kode) {
+  const arr = getLS('operatorList');
+  return arr.find(op => op.kode_operator === kode);
+}
+function getOperatorByEmail(email) {
+  const arr = getLS('operatorList');
+  return arr.find(op => op.email.toLowerCase() === email.toLowerCase());
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+
+  updateLoginUI();
+
+  // Registrasi
+  const btnGenKode = document.getElementById('btn-generate-kode');
+  const kodeInput = document.getElementById('kode_operator');
+  if (btnGenKode && kodeInput) {
+    btnGenKode.onclick = function() {
+      kodeInput.value = generateKodeOperator();
+    };
+  }
+  const regForm = document.getElementById('form-registrasi');
+  if (regForm) {
+    regForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const f = regForm;
+      const kode = f.kode_operator.value.trim();
+      const nama = f.nama.value.trim();
+      const ktp = f.ktp.value.trim();
+      const kontak = f.kontak.value.trim();
+      const email = f.email.value.trim();
+      const pass = f.password.value;
+      const konfirmasi = f.konfirmasi.value;
+      const notif = document.getElementById('notif-registrasi');
+      notif.innerHTML = '';
+      if (!kode || kode.length < 17) {
+        notif.innerHTML = '<span style="color:red">ID Operator belum digenerate!</span>'; return;
+      }
+      if (getOperatorByKode(kode)) {
+        notif.innerHTML = '<span style="color:red">ID Operator sudah terdaftar!</span>'; return;
+      }
+      if (getOperatorByEmail(email)) {
+        notif.innerHTML = '<span style="color:red">Email sudah terdaftar!</span>'; return;
+      }
+      if (pass !== konfirmasi) {
+        notif.innerHTML = '<span style="color:red">Konfirmasi password tidak cocok!</span>'; return;
+      }
+      if (ktp.length !== 16 || !/^\d+$/.test(ktp)) {
+        notif.innerHTML = '<span style="color:red">No KTP harus 16 digit angka!</span>'; return;
+      }
+      if (kontak.length < 8) {
+        notif.innerHTML = '<span style="color:red">No Kontak minimal 8 digit!</span>'; return;
+      }
+      let arr = getLS('operatorList');
+      arr.push({
+        kode_operator: kode,
+        nama, ktp, kontak, email, password: pass
+      });
+      setLS('operatorList', arr);
+      notif.innerHTML = '<span style="color:green">Registrasi berhasil, silakan login!</span>';
+      regForm.reset();
+      kodeInput.value = '';
+      updateLoginUI();
+    });
+  }
+
+  // Login
+  const loginForm = document.getElementById('form-login');
+  const loginValidasiInfo = document.getElementById('login-validasi-info');
+  let loginValidasiKode = '';
+  if (loginForm && loginValidasiInfo) {
+    loginForm.kode_operator.onblur = function() {
+      const kode = loginForm.kode_operator.value.trim();
+      const op = getOperatorByKode(kode);
+      if (op) {
+        loginValidasiKode = acak3angkaKontak(op.kontak);
+        loginValidasiInfo.innerHTML = `Masukkan <b>3 digit ini</b> dari nomor kontak operator: <span style="font-family:monospace">${loginValidasiKode}</span>`;
+      } else {
+        loginValidasiInfo.textContent = '';
+        loginValidasiKode = '';
+      }
+    };
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const kode = loginForm.kode_operator.value.trim();
+      const pass = loginForm.password.value;
+      const validasi = loginForm.validasi.value;
+      const notif = document.getElementById('notif-login');
+      const op = getOperatorByKode(kode);
+      if (!op) {
+        notif.innerHTML = '<span style="color:red">ID Operator tidak ditemukan!</span>'; return;
+      }
+      if (op.password !== pass) {
+        notif.innerHTML = '<span style="color:red">Password salah!</span>'; return;
+      }
+      if (acak3angkaKontak(op.kontak) !== validasi) {
+        notif.innerHTML = '<span style="color:red">Validasi 3 angka salah!</span>'; return;
+      }
+      notif.innerHTML = '<span style="color:green">Login sukses! Selamat datang, '+op.nama+'</span>';
+      setLoginSession(op);
+      updateLoginUI();
+      closeAuthForm('login');
+      showSection('pemetaan');
+    });
+  }
+
+  // Lupa password
+  const lupaCard = document.getElementById('modal-lupa');
+  const lupaForm = document.getElementById('form-lupa-password');
+  const lupaValidasiInfo = document.getElementById('lupa-validasi-info');
+  if (lupaForm && lupaValidasiInfo) {
+    lupaForm.email.onblur = function() {
+      const email = lupaForm.email.value.trim();
+      const op = getOperatorByEmail(email);
+      if (op) {
+        lupaValidasiInfo.innerHTML = `Masukkan <b>3 digit ini</b> dari nomor kontak operator: <span style="font-family:monospace">${acak3angkaKontak(op.kontak)}</span>`;
+      } else {
+        lupaValidasiInfo.textContent = '';
+      }
+    };
+    lupaForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = lupaForm.email.value.trim();
+      const validasi = lupaForm.validasi.value;
+      const notif = document.getElementById('notif-lupa');
+      const op = getOperatorByEmail(email);
+      if (!op) {
+        notif.innerHTML = '<span style="color:red">Email tidak ditemukan!</span>'; return;
+      }
+      if (acak3angkaKontak(op.kontak) !== validasi) {
+        notif.innerHTML = '<span style="color:red">Validasi 3 angka salah!</span>'; return;
+      }
+      notif.innerHTML = '<span style="color:green">Permintaan reset password telah dikirim ke email operator.<br>Silakan cek email untuk instruksi reset (simulasi).</span>';
+      lupaForm.reset();
+      lupaValidasiInfo.textContent = '';
+      setTimeout(()=>{ if(lupaCard) lupaCard.style.display='none'; }, 2500);
+    });
+  }
+});
