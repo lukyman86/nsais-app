@@ -293,9 +293,20 @@ function clearLoginSession() {
 // ============ UI LOGIN/LOGOUT & MENU FITUR ===========
 function updateLoginUI() {
   const op = getLoginSession();
-  // Toggle nav buttons (menu fitur) except beranda
-  document.querySelectorAll('nav button:not([onclick*="showSection(\'beranda\')"])')
-    .forEach(btn => btn.style.display = op ? '' : 'none');
+  // Selalu tampilkan semua tombol menu
+  document.querySelectorAll('nav button:not([onclick*="showSection(\'beranda\')"])').forEach(btn => {
+    btn.style.display = '';
+    // Jika belum login, disable tombol selain beranda
+    if (!op) {
+      btn.disabled = true;
+      btn.classList.add('nav-disabled');
+      btn.title = 'Login diperlukan';
+    } else {
+      btn.disabled = false;
+      btn.classList.remove('nav-disabled');
+      btn.title = '';
+    }
+  });
   // Tambahkan tombol logout jika sudah login, hapus jika belum
   let nav = document.querySelector('nav');
   let logoutBtn = document.getElementById('btn-logout');
@@ -312,15 +323,29 @@ function updateLoginUI() {
   } else if (!op && logoutBtn) {
     logoutBtn.remove();
   }
-  // Hide semua fitur section kecuali beranda jika belum login
-  document.querySelectorAll('main > section:not(#beranda)').forEach(sec=>{
-    sec.style.display = op ? '' : 'none';
-  });
-  // Jika login, auto ke pemetaan jika belum ada section lain terbuka
-  if (op && document.querySelector('.section-bg:not(.hidden):not(#beranda)') === null) {
-
-  }
 }
+
+// Tambahkan CSS agar tombol disabled tampak tidak aktif
+document.addEventListener('DOMContentLoaded', function() {
+  updateLoginUI();
+  // Tambah style jika belum ada
+  if (!document.getElementById('nav-disabled-style')) {
+    const style = document.createElement('style');
+    style.id = 'nav-disabled-style';
+    style.textContent = `
+      nav button.nav-disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: auto;
+      }
+      nav button.nav-disabled:active {
+        pointer-events: none;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+});
+
 
 // ============ MODAL LOGIN/REG/LUPA ===========
 function showAuthForm(type) {
