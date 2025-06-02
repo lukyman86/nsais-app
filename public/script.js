@@ -312,7 +312,7 @@ function updateLoginUI() {
   });
   // Jika login, auto ke pemetaan jika belum ada section lain terbuka
   if (op && document.querySelector('.section-bg:not(.hidden):not(#beranda)') === null) {
-    showSection('pemetaan');
+
   }
 }
 
