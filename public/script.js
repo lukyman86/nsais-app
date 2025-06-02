@@ -521,3 +521,35 @@ document.addEventListener('DOMContentLoaded', function(){
     });
   }
 });
+// ========== DUMMY DEMO CONTENT UNTUK SETIAP MENU ==========
+function showDemoContent(sectionId) {
+  const section = document.getElementById(sectionId);
+  if (section) {
+    section.innerHTML = `
+      <div style="padding:2rem; text-align:center; color:#2d2d2d;">
+        <h2>DEMO FITUR: ${sectionId.toUpperCase()}</h2>
+        <p>Ini adalah tampilan dummy <b>${sectionId}</b>.<br>
+        Login sebagai operator untuk mengakses fitur sebenarnya.</p>
+        <p style="font-size:1.2em;color:#999;">(Script ini hanya untuk demo, silakan login untuk akses penuh)</p>
+      </div>
+    `;
+  }
+}
+
+// Simpan reference fungsi showSection asli
+const origShowSection = showSection;
+
+// Override showSection agar menampilkan dummy jika belum login
+showSection = function(id) {
+  const op = getLoginSession();
+  if (!op && id !== 'beranda') {
+    // Tampilkan dummy untuk section yang dipilih
+    showDemoContent(id);
+    document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
+    const section = document.getElementById(id);
+    if (section) section.classList.remove('hidden');
+    return;
+  }
+  // Jika sudah login, jalankan fungsi asli
+  origShowSection(id);
+};
