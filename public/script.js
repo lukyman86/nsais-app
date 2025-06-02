@@ -16,6 +16,12 @@ function setLS(key, val) {
 
 // === Navigasi ===
 function showSection(id) {
+  // Jika belum login dan menu selain beranda, tampilkan alert
+  const op = getLoginSession();
+  if (!op && id !== 'beranda') {
+    alert('Silakan login terlebih dahulu untuk mengakses fitur ini.');
+    return;
+  }
   document.querySelectorAll('main > section').forEach(s => s.classList.add('hidden'));
   const section = document.getElementById(id);
   if (section) section.classList.remove('hidden');
