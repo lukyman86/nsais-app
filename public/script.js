@@ -258,9 +258,9 @@ document.addEventListener('DOMContentLoaded', function() {
 // ============ Tambah Operator Dummy Jika Belum Ada ===========
 (function(){
   let opers = JSON.parse(localStorage.getItem('operatorList')||'[]');
-  if (!opers.find(o=>o.kode_operator==='OP-NSAIS080123456')) {
+  if (!opers.find(o=>o.kode_operator==='OP-NSAIS08123456')) {
     opers.push({
-      kode_operator: 'OP-NSAIS080123456',
+      kode_operator: 'OP-NSAIS08123456',
       nama: 'Operator Dummy',
       ktp: '1234567890123456',
       kontak: '081234567890',
