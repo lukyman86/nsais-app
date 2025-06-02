@@ -248,6 +248,13 @@ footer {
   font-weight: bold;
   color:#2196F3;
   cursor:pointer;
+    nav button.nav-disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  pointer-events: auto;
+}
+nav button.nav-disabled:active {
+  pointer-events: none;
 }
 /* Hide nav buttons (menu fitur) by default, show by JS if login */
 nav button:not([onclick*="showSection('beranda')"]) { display: none; }
